@@ -1,5 +1,6 @@
 # AdelicToriLean
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
+
 **Release `v0.1.0-discrete-core`: an intermediate certified release.** This release does not
 formalize the whole paper.
 - The 18 audited declarations (`audits/axioms.txt`) are certified under the explicitly stated
