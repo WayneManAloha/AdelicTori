@@ -1,4 +1,5 @@
 import AdelicToriLean
+import Pontryagin
 #print axioms AdelicToriLean.exists_degreeOnePrimes
 #print axioms AdelicToriLean.schur
 #print axioms AdelicToriLean.exponent_ne_zero
@@ -21,3 +22,9 @@ import AdelicToriLean
 #print axioms AdelicToriLean.DegreeOnePrimes.card_PinvQuot
 #print axioms AdelicToriLean.DegreeOnePrimes.Pinv_eq_sup
 #print axioms AdelicToriLean.DegreeOnePrimes.pow_dvd_norm
+
+-- Third-party (vendor/Pontryagin), audited here
+#print axioms PontryaginDual.toDoubleDual
+#print axioms PontryaginDual.toDoubleDual_apply
+#print axioms PontryaginDual.eval_injective
+#print axioms PontryaginDual.eval_surjective

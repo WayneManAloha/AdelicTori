@@ -1,6 +1,6 @@
 name = "AdelicToriLean"
 version = "0.1.0"
-defaultTargets = ["AdelicToriLean"]
+defaultTargets = ["AdelicToriLean", "Pontryagin"]
 
 [[require]]
 name = "mathlib"
@@ -10,3 +10,11 @@ rev = "v4.34.0-rc2"
 
 [[lean_lib]]
 name = "AdelicToriLean"
+
+# Third-party: shosonoda/pontryagin @ 4f72437124104369dc18ac380061bc2006f8e392 (Apache 2.0),
+# ported to Lean/Mathlib v4.34.0-rc2. See vendor/Pontryagin/PORTING.md.
+# The lean options below are upstream's and apply to this library only.
+[[lean_lib]]
+name = "Pontryagin"
+srcDir = "vendor/Pontryagin"
+leanOptions = { pp.unicode.fun = true, relaxedAutoImplicit = false, weak.linter.mathlibStandardSet = true, maxSynthPendingDepth = 3 }

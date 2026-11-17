@@ -20,3 +20,7 @@
 'AdelicToriLean.DegreeOnePrimes.card_PinvQuot' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AdelicToriLean.DegreeOnePrimes.Pinv_eq_sup' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AdelicToriLean.DegreeOnePrimes.pow_dvd_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PontryaginDual.toDoubleDual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PontryaginDual.toDoubleDual_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PontryaginDual.eval_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PontryaginDual.eval_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]

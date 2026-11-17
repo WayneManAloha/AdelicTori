@@ -10,17 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build (fetch Mathlib cache, lake build)
+      - name: Set up Lean and fetch the Mathlib cache
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
-          build-args: "--wfail"
+          build: false
+      - name: Build (AdelicToriLean and vendored Pontryagin)
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee build.log
+      - name: No warnings in AdelicTori's own sources
+        run: |
+          if grep -E '^(warning|error): AdelicToriLean' build.log; then
+            echo "warning in AdelicToriLean sources"; exit 1; fi
       - name: Forbidden tokens
         run: |
-          if grep -rnE '\bsorry\b|\badmit\b|native_decide|^axiom ' AdelicToriLean AdelicToriLean.lean; then
+          if grep -rnE '\bsorry\b|\badmit\b|native_decide|^axiom ' AdelicToriLean AdelicToriLean.lean vendor/Pontryagin/Pontryagin vendor/Pontryagin/Pontryagin.lean; then
             echo "forbidden token found"; exit 1; fi
       - name: Axiom audit
         run: |
           lake env lean scripts/Audit.lean | tee axioms.txt
-          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 22
+          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 26
           ! grep -q sorryAx axioms.txt

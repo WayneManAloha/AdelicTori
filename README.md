@@ -178,6 +178,7 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/Unconditional.lean` | unconditional discrete realisation |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
+| `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
 
 ## Build
 
@@ -194,20 +195,44 @@ lake build
 lake env lean scripts/Audit.lean
 ```
 
-**Continuous integration.** `.github/workflows/build.yml` builds with `--wfail`, rejects
-`sorry`/`admit`/`native_decide`/`axiom`, and checks that all 22 audited declarations depend only
-on `propext`, `Classical.choice`, `Quot.sound`.
+**Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
+vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
+`sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
+that all 26 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
 
+## Third-party library: Pontryagin duality
+
+`vendor/Pontryagin/` contains the library `pontryagin` by **The pontryagin contributors**
+(https://github.com/shosonoda/pontryagin, commit `4f72437124104369dc18ac380061bc2006f8e392`,
+Apache License 2.0). It proves Pontryagin duality for locally compact Hausdorff abelian groups:
+
+```lean
+PontryaginDual.toDoubleDual : G ≃ₜ* PontryaginDual (PontryaginDual G)   -- toDoubleDual G g χ = χ g
+```
+
+These proofs are **not** the work of Wayne Lewis. The library was ported from Lean/Mathlib
+`v4.32.0` to `v4.34.0-rc2` by five one-line proof edits and no change to any statement; see
+`vendor/Pontryagin/PORTING.md`. Its own copyright headers, `LICENSE` and upstream README are kept.
+Its Lean options (including `maxSynthPendingDepth = 3`) apply to that library only. Under
+`v4.34.0-rc2` the vendored files emit 51 linter warnings (deprecations and style); they are left
+unchanged to keep the diff from upstream minimal.
+
+Audited third-party declarations: `PontryaginDual.toDoubleDual`, `PontryaginDual.toDoubleDual_apply`,
+`PontryaginDual.eval_injective`, `PontryaginDual.eval_surjective`.
+
 ## License
 
-Apache License 2.0, copyright 2026 Wayne Lewis. See `LICENSE` and `NOTICE`.
+AdelicTori: Apache License 2.0, copyright 2026 Wayne Lewis. See `LICENSE` and `NOTICE`.
+The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and authors.
 
 ## Verification record
 
-- `lake build` completes with exit code 0, 0 errors, 0 warnings (`audits/FullBuild.log`).
-- The source contains no `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 22 declarations: every paper-facing statement and the
-  key lemmas. Each depends only on `propext`, `Classical.choice`, `Quot.sound`.
+- `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
+  warnings (`audits/FullBuild.log`).
+- No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
+- `audits/axioms.txt` lists the axioms of 26 declarations: 22 from AdelicTori (every paper-facing
+  statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
+  `propext`, `Classical.choice`, `Quot.sound`.

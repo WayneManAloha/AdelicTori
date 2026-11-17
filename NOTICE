@@ -2,3 +2,11 @@ AdelicToriLean
 Copyright 2026 Wayne Lewis
 
 Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+## Third-party code
+
+This project vendors the `pontryagin` library (Pontryagin duality for locally compact abelian groups)
+by The pontryagin contributors, https://github.com/shosonoda/pontryagin, commit
+4f72437124104369dc18ac380061bc2006f8e392, licensed under the Apache License 2.0, in
+vendor/Pontryagin/. It is not the work of Wayne Lewis. Modifications are listed in
+vendor/Pontryagin/PORTING.md.
