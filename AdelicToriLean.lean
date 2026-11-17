@@ -30,3 +30,5 @@ import AdelicToriLean.QHatSelfDual
 import AdelicToriLean.QHatnDual
 import AdelicToriLean.DualityTools
 import AdelicToriLean.PerpQuot
+import AdelicToriLean.ModelLattice
+import AdelicToriLean.ModelSequence

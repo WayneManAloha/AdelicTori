@@ -76,6 +76,15 @@ import Pontryagin
 #print axioms AdelicToriLean.thetaPQ_injective
 #print axioms AdelicToriLean.thetaPQ_surjective
 #print axioms AdelicToriLean.perpQuotEquiv
+#print axioms AdelicToriLean.psi_eq_zero_iff
+#print axioms AdelicToriLean.perp_emb_eq
+#print axioms AdelicToriLean.rat_mem_perp_iff
+#print axioms AdelicToriLean.modelL_selfDual
+#print axioms AdelicToriLean.FMap_comp_jMap
+#print axioms AdelicToriLean.FMap_surjective
+#print axioms AdelicToriLean.ker_FMap
+#print axioms AdelicToriLean.jMap_injective
+#print axioms AdelicToriLean.continuous_FMap
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
