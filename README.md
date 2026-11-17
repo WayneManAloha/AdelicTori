@@ -2,9 +2,9 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 79 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 88 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
-  `spectrum-resolutions`, 18 toward Theorem `self-dual-pses` infrastructure toward Theorem `fdccg-adelic-tori`, and 4
+  `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, and 4
   imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
@@ -39,13 +39,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 18 toward Theorem `self-dual-pses` (see the theorem map), and 4 imported duality declarations.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 79 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 88 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -65,7 +65,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 79 audited Lean declarations.
+The repository contains 88 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -203,9 +203,12 @@ yet defined in Lean.
 | `B/ℤⁿ` torsion | `torsion_B` | `SpectrumPaper.lean` |
 | `L_B` periodic: `C'` compact open in `L_B`, every element in a compact open subgroup | `periodic_LB` | `SpectrumPaper.lean` |
 
-### Theorem *Pontryagin Self-Dual Proper Short Exact Sequence* (`self-dual-pses`): in progress
+### Theorem *Pontryagin Self-Dual Proper Short Exact Sequence* (`self-dual-pses`): certified
 
-Not yet certified. Named results certified so far:
+`self_dual_pses` (`SelfDualPSES.lean`): for a finite-dimensional protorus `G`, `n = dim_a G`, with
+`ι : G^∨ → ℚⁿ` and `L = C^⊥/C`, the sequence `0 → G^∨ → L × ℝⁿ → G → 0` is exact, the first map is
+injective with discrete image, the second is continuous, surjective and open, `L` is periodic,
+`L × ℝⁿ ≅ (L × ℝⁿ)^∨` and `G ≅ (G^∨)^∨`.
 
 | Ingredient | Lean declaration | File |
 |---|---|---|
@@ -219,11 +222,16 @@ Not yet certified. Named results certified so far:
 | `C = ι(G^∨)^⊥` and `C^⊥ ∩ ℚⁿ = ι(G^∨)` | `perp_emb_eq`, `rat_mem_perp_iff` | `ModelLattice.lean` |
 | **`L ≅ L^∨`**, `L = C^⊥/C` | `modelL_selfDual` | `ModelLattice.lean` |
 | exactness of `0 → G^∨ → L × ℝⁿ → (𝔸ⁿ/C)/Λ → 0` | `jMap_injective`, `FMap_comp_jMap`, `ker_FMap`, `FMap_surjective`, `continuous_FMap` | `ModelSequence.lean` |
+| `L` periodic | `periodic_modelL` | `ModelProper.lean` |
+| image of `G^∨` discrete; `L × ℝⁿ → G` open | `discrete_range_jMap`, `isOpenMap_FMap` | `ModelProper.lean` |
+| characters of `ℝ`, `ℝⁿ`; **`ℝⁿ ≅ (ℝⁿ)^∨`** | `chiR_surjective`, `chiRn_surjective`, `realSelfDual` | `RealDual.lean` |
+| `(X × Y)^∨ ≅ X^∨ × Y^∨` | `dualProd` | `DualProd.lean` |
+| **`L × ℝⁿ ≅ (L × ℝⁿ)^∨`** | `middleSelfDual` | `SelfDualPSES.lean` |
+| **Theorem `self-dual-pses`** | `self_dual_pses` | `SelfDualPSES.lean` |
 
 ### Other results of the paper
 
 These are all **paper only**:
-- *Pontryagin Self-Dual Proper Short Exact Sequence*;
 - Lemma `nala-periodic-lca`;
 - *Symmetric Adelic Lie Algebra*;
 - *Topological Characterisation via Nonarchimedean Exponential*;
@@ -290,6 +298,10 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/PerpQuot.lean` | `C^⊥/C` self-dual |
 | `AdelicToriLean/ModelLattice.lean` | `L = C^⊥/C` of the adelic model, self-dual |
 | `AdelicToriLean/ModelSequence.lean` | the exact sequence `0 → G^∨ → L × ℝⁿ → G → 0` |
+| `AdelicToriLean/ModelProper.lean` | properness; `L` periodic |
+| `AdelicToriLean/RealDual.lean` | `ℝⁿ ≅ (ℝⁿ)^∨` |
+| `AdelicToriLean/DualProd.lean` | dual of a product |
+| `AdelicToriLean/SelfDualPSES.lean` | **Theorem `self-dual-pses`** |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -312,7 +324,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 79 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 88 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -347,6 +359,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 79 declarations: 75 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 88 declarations: 84 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

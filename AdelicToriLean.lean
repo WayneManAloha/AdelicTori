@@ -32,3 +32,7 @@ import AdelicToriLean.DualityTools
 import AdelicToriLean.PerpQuot
 import AdelicToriLean.ModelLattice
 import AdelicToriLean.ModelSequence
+import AdelicToriLean.RealDual
+import AdelicToriLean.ModelProper
+import AdelicToriLean.DualProd
+import AdelicToriLean.SelfDualPSES

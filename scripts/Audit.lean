@@ -85,6 +85,15 @@ import Pontryagin
 #print axioms AdelicToriLean.ker_FMap
 #print axioms AdelicToriLean.jMap_injective
 #print axioms AdelicToriLean.continuous_FMap
+#print axioms AdelicToriLean.chiR_surjective
+#print axioms AdelicToriLean.chiRn_surjective
+#print axioms AdelicToriLean.realSelfDual
+#print axioms AdelicToriLean.periodic_modelL
+#print axioms AdelicToriLean.discrete_range_jMap
+#print axioms AdelicToriLean.isOpenMap_FMap
+#print axioms AdelicToriLean.dualProd
+#print axioms AdelicToriLean.middleSelfDual
+#print axioms AdelicToriLean.self_dual_pses
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
