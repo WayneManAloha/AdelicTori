@@ -1,8 +1,7 @@
 # AdelicToriLean
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
-**Release `v0.1.0-discrete-core`: an intermediate certified release.** This release does not
-formalize the whole paper.
+Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
 - The 18 audited declarations (`audits/axioms.txt`) are certified under the explicitly stated
   hypothesis `DegreeOnePrimes K`.
 - The existence of a `DegreeOnePrimes K` sequence is not formally certified here.
