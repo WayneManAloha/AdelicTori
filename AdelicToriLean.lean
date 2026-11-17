@@ -28,3 +28,5 @@ import AdelicToriLean.SpectrumPaper
 import AdelicToriLean.QHatDual
 import AdelicToriLean.QHatSelfDual
 import AdelicToriLean.QHatnDual
+import AdelicToriLean.DualityTools
+import AdelicToriLean.PerpQuot

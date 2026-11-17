@@ -73,6 +73,9 @@ import Pontryagin
 #print axioms AdelicToriLean.chi_surjective
 #print axioms AdelicToriLean.charN_surjective
 #print axioms AdelicToriLean.perp_perp_eq
+#print axioms AdelicToriLean.thetaPQ_injective
+#print axioms AdelicToriLean.thetaPQ_surjective
+#print axioms AdelicToriLean.perpQuotEquiv
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
