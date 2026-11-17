@@ -7,8 +7,8 @@ formalize the whole paper.
 - The existence of a `DegreeOnePrimes K` sequence is not formally certified here.
 - The manuscript's topological theorems are not formally certified here.
 
-Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis
-(submitted to *Topology Proceedings*).
+Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
+[arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
 
 This repository certifies the **discrete algebraic core** of the paper's number-field
 construction: the group of integers `B_K = Σ_k 𝔭_k⁻¹` attached to a number field `K`, its
