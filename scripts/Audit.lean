@@ -58,6 +58,14 @@ import Pontryagin
 #print axioms AdelicToriLean.lamEquiv
 #print axioms AdelicToriLean.discreteTopology_Lam
 
+-- Theorem spectrum-resolutions
+#print axioms AdelicToriLean.Spectrum.spectrumEquiv
+#print axioms AdelicToriLean.spectrum_of_resolutions
+#print axioms AdelicToriLean.t2Space_LB
+#print axioms AdelicToriLean.exact_LB
+#print axioms AdelicToriLean.periodic_LB
+#print axioms AdelicToriLean.torsion_B
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply

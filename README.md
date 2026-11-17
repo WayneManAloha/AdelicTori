@@ -2,14 +2,16 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 55 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
-  arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients infrastructure toward Theorem `fdccg-adelic-tori`, and 4
+- 61 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+  arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
+  `spectrum-resolutions` infrastructure toward Theorem `fdccg-adelic-tori`, and 4
   imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
-- Theorem `fdccg-adelic-tori` (finite-dimensional protori are adelic tori) is checked in Lean.
-  The manuscript's other topological theorems are not yet formally checked here.
+- Theorems `fdccg-adelic-tori` (finite-dimensional protori are adelic tori) and
+  `spectrum-resolutions` are checked in Lean. The manuscript's other topological theorems are not
+  yet formally checked here.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
@@ -37,13 +39,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients (see the theorem map), and 4 imported duality declarations.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions` (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 55 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 61 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -63,7 +65,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 55 audited Lean declarations.
+The repository contains 61 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -180,10 +182,30 @@ Ingredients of the proof (AdelicTori's own, except the last row):
 | **`(𝔸ⁿ / C) / Λ ≅ D^∨` as topological groups**, for discrete `ℤⁿ ⊆ D ⊆ ℚⁿ` | `adelicModelEquiv` | `AdelicTorus.lean` |
 | Pontryagin reflexivity `G ≅ G^∨∨` | `PontryaginDual.toDoubleDual` | vendored (third-party) |
 
+### Theorem *Spectrum of Resolutions* (`spectrum-resolutions`): certified
+
+**Paper:** let `G` be a finite-dimensional protorus with `G ≅ (C' × ℝⁿ)/ℤⁿ` for a delta-subgroup
+`C'`. If `ℤⁿ ⊆ B ⊆ ℚⁿ`, then `G ≅ (L_B × ℝⁿ)/B`, where `L_B = C' ⊕_{ℤⁿ} B` is the (periodic LCA)
+pushout of `C'` along `ℤⁿ ↪ B`.
+
+**Lean.** The isomorphism holds for any topological group `C'` and any `α : ℤⁿ → C'`
+(`Spectrum.spectrumEquiv`, in the generality in which the paper's proof runs); the paper-facing
+form is `spectrum_of_resolutions`: from `G ≃ₜ* (C' × ℝⁿ)/ℤⁿ` it produces `G ≃ₜ* (L_B × ℝⁿ)/B`. The
+delta-subgroup hypothesis is used in the paper only to make `C'` profinite; the Lean statements
+about `L_B` assume what they use (`C'` Hausdorff, resp. compact). Delta-subgroups themselves are not
+yet defined in Lean.
+
+| Paper claim | Lean declaration | File |
+|---|---|---|
+| `G ≅ (L_B × ℝⁿ)/B` | `spectrum_of_resolutions` (`Spectrum.spectrumEquiv`: `Φ̄_B`, `Ψ_B` inverse) | `SpectrumPaper.lean`, `SpectrumResolution.lean` |
+| `{(α z, -z)}` closed, `L_B` Hausdorff | `t2Space_LB` (`Spectrum.isClosed_S`) | `SpectrumPaper.lean` |
+| `0 → C' → L_B → B/ℤⁿ → 0` exact | `exact_LB` | `SpectrumPaper.lean` |
+| `B/ℤⁿ` torsion | `torsion_B` | `SpectrumPaper.lean` |
+| `L_B` periodic: `C'` compact open in `L_B`, every element in a compact open subgroup | `periodic_LB` | `SpectrumPaper.lean` |
+
 ### Other results of the paper
 
 These are all **paper only**:
-- *Spectrum of Resolutions*;
 - *Pontryagin Self-Dual Proper Short Exact Sequence*;
 - Lemma `nala-periodic-lca`;
 - *Symmetric Adelic Lie Algebra*;
@@ -242,6 +264,8 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/RankEmbedding.lean` | `ℤⁿ ⊆ A ⊆ ℚⁿ` for torsion-free `A` of rank `n` |
 | `AdelicToriLean/Fdccg.lean` | **Theorem `fdccg-adelic-tori`** |
 | `AdelicToriLean/AdelicTorusProps.lean` | properties of `C` and `Λ` |
+| `AdelicToriLean/SpectrumResolution.lean` | `(L_B × V)/B ≅ (C × V)/ℤⁿ`, general form |
+| `AdelicToriLean/SpectrumPaper.lean` | **Theorem `spectrum-resolutions`**; `L_B` Hausdorff, exact, periodic |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -264,7 +288,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 55 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 61 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -299,6 +323,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 55 declarations: 51 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 61 declarations: 57 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

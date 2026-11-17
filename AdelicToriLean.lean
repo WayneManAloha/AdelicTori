@@ -23,3 +23,5 @@ import AdelicToriLean.AdelicTorus
 import AdelicToriLean.RankEmbedding
 import AdelicToriLean.Fdccg
 import AdelicToriLean.AdelicTorusProps
+import AdelicToriLean.SpectrumResolution
+import AdelicToriLean.SpectrumPaper
