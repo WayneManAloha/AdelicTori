@@ -35,6 +35,12 @@ import Pontryagin
 #print axioms AdelicToriLean.psi_eq_zero_of_integral
 #print axioms AdelicToriLean.psi_algebraMap
 
+#print axioms AdelicToriLean.isCompact_ZHat
+#print axioms AdelicToriLean.exists_rat_add_ZHat
+#print axioms AdelicToriLean.continuous_pairing
+#print axioms AdelicToriLean.pairing_diag
+#print axioms AdelicToriLean.annihilator_eq
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply

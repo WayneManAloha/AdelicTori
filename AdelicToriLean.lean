@@ -15,3 +15,6 @@ import AdelicToriLean.Protorus
 import AdelicToriLean.PadicFract
 import AdelicToriLean.RatFract
 import AdelicToriLean.FiniteAdeleChar
+import AdelicToriLean.StrongApprox
+import AdelicToriLean.AdelicPairing
+import AdelicToriLean.AdelicKernel
