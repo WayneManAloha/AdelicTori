@@ -18,3 +18,5 @@ import AdelicToriLean.FiniteAdeleChar
 import AdelicToriLean.StrongApprox
 import AdelicToriLean.AdelicPairing
 import AdelicToriLean.AdelicKernel
+import AdelicToriLean.AdelicModel
+import AdelicToriLean.AdelicTorus

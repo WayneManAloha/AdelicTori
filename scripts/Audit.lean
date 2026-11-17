@@ -41,6 +41,12 @@ import Pontryagin
 #print axioms AdelicToriLean.pairing_diag
 #print axioms AdelicToriLean.annihilator_eq
 
+#print axioms AdelicToriLean.continuous_Phi
+#print axioms AdelicToriLean.ker_Phi
+#print axioms AdelicToriLean.Phi_surjective
+#print axioms AdelicToriLean.compactSpace_adelicTorus
+#print axioms AdelicToriLean.adelicModelEquiv
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply
