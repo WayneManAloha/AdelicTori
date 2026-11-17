@@ -1,5 +1,5 @@
 # AdelicToriLean
-
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 **Release `v0.1.0-discrete-core`: an intermediate certified release.** This release does not
 formalize the whole paper.
 - The 18 audited declarations (`audits/axioms.txt`) are certified under the explicitly stated
@@ -17,6 +17,20 @@ nonarchimedean dimension of every number field is `1`.
 
 The topological parts of the paper (Pontryagin duality, adelic tori, delta-subgroups, the
 adelic Lie algebra) are **not** formalized here. The status of each result is listed below.
+## Verify the proofs in GitHub Codespaces
+
+Click the "Open in GitHub Codespaces" button above.
+
+Once the development environment is ready,
+open a terminal and run:
+
+    lake build
+    lake env lean scripts/Audit.lean
+
+The repository contains 18 audited Lean declarations.
+See audits/axioms.txt for their axiom dependencies.
+
+No local Lean installation is required.
 
 ## Status at a glance
 
