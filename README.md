@@ -2,14 +2,14 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 46 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
-  arithmetic core, 20 for phase (b) infrastructure toward Theorem `fdccg-adelic-tori`, and 4
+- 55 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+  arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients infrastructure toward Theorem `fdccg-adelic-tori`, and 4
   imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
-- The manuscript's principal topological theorems are not yet formally checked in Lean here;
-  phase (b) infrastructure is listed below.
+- Theorem `fdccg-adelic-tori` (finite-dimensional protori are adelic tori) is checked in Lean.
+  The manuscript's other topological theorems are not yet formally checked here.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
@@ -37,13 +37,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 20 declarations of phase (b) (see the theorem map), and 4 imported duality declarations.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 46 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 55 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -63,7 +63,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 46 audited Lean declarations.
+The repository contains 55 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -128,9 +128,34 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | lower bound: a group of integers with no free summands has `B/𝒪_K` infinite | `free_of_finite_quotient` (if `B/𝒪_K` is finite, then `B` is free of rank `[K:ℚ]`) | certified (discrete side) |
 | passage to `dim_n(B_K^∨) = 1` via the standard representation of `(B_K/𝒪_K)^∨` | none | paper only (Pontryagin duality, [Lewis 2019, Prop. 1, Lemma 6, Cor. 4]) |
 
-### Theorem *Finite-Dimensional Compact Connected Groups Are Adelic Tori* (`fdccg-adelic-tori`): in progress
+### Theorem *Finite-Dimensional Compact Connected Groups Are Adelic Tori* (`fdccg-adelic-tori`): certified
 
-The theorem itself is **not yet** certified. Certified ingredients (AdelicTori's own proofs):
+**Paper:** if `G` is a protorus with `dim_a G = n`, then `G ≅ (𝔸ⁿ/C)/Λ` for a torsion-free profinite
+group `C` and a discrete cocompact `Λ ≅ ℚⁿ`.
+
+**Lean** (`Fdccg.lean`, `fdccg_adelic_tori`). Hypotheses: `[CommGroup G] [TopologicalSpace G]
+[IsTopologicalGroup G] [CompactSpace G] [ConnectedSpace G] [T2Space G]` (a protorus) and
+`[FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDual G))]` (finite-dimensional), with
+`n = dimA G = dim_ℚ (ℚ ⊗ G^∨)`. Conclusion: there is an injective `ι : G^∨ → ℚⁿ` whose image
+contains `ℤⁿ` and a topological group isomorphism `G ≃ₜ* Multiplicative ((𝔸ⁿ ⧸ C) ⧸ Λ)`, where
+`𝔸 = 𝔸ᶠ[ℤ, ℚ] × ℝ` (Mathlib's finite adeles), `C = Cadd ι` is the annihilator of `ι(G^∨)` in `ℤ̂ⁿ`,
+and `Λ = Lam ι` is the image of the diagonal `ℚⁿ`. The properties of `C` and `Λ` are separate
+declarations (they hold for every such `ι`):
+
+| Paper claim | Lean declaration | File |
+|---|---|---|
+| `G ≅ (𝔸ⁿ/C)/Λ` | `fdccg_adelic_tori` | `Fdccg.lean` |
+| `C ⊆ ℤ̂ⁿ × {0}` | `Cadd_le` | `AdelicTorusProps.lean` |
+| `C` compact | `isCompact_Cadd` | `AdelicTorusProps.lean` |
+| `C` totally disconnected (compact + totally disconnected: profinite) | `totallyDisconnected_Cadd` | `AdelicTorusProps.lean` |
+| `C` torsion-free (`𝔸ⁿ` is torsion-free) | `An_torsionFree` | `AdelicTorusProps.lean` |
+| `Λ̃ ∩ C = 0` | `diag_mem_Cadd_iff` | `AdelicTorusProps.lean` |
+| `Λ ≅ ℚⁿ` | `lamEquiv` | `AdelicTorusProps.lean` |
+| `Λ` discrete in `𝔸ⁿ/C` | `discreteTopology_Lam` | `AdelicTorusProps.lean` |
+| `Λ` cocompact (`(𝔸ⁿ/C)/Λ` compact) | `compactSpace_adelicTorus` | `AdelicTorus.lean` |
+| `ℤⁿ ⊆ G^∨ ⊆ ℚⁿ` (choice of `F ≅ ℤⁿ`) | `exists_rank_embedding`, `dual_additive_torsionFree` | `RankEmbedding.lean`, `Fdccg.lean` |
+
+Ingredients of the proof (AdelicTori's own, except the last row):
 
 | Ingredient used in the paper's proof | Lean declaration | File |
 |---|---|---|
@@ -214,6 +239,9 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/AdelicKernel.lean` | annihilator of a lattice in `𝔸ⁿ` |
 | `AdelicToriLean/AdelicModel.lean` | the map `Φ : 𝔸ⁿ → D^∨`, kernel, surjectivity |
 | `AdelicToriLean/AdelicTorus.lean` | `(𝔸ⁿ / C) / Λ ≅ D^∨` |
+| `AdelicToriLean/RankEmbedding.lean` | `ℤⁿ ⊆ A ⊆ ℚⁿ` for torsion-free `A` of rank `n` |
+| `AdelicToriLean/Fdccg.lean` | **Theorem `fdccg-adelic-tori`** |
+| `AdelicToriLean/AdelicTorusProps.lean` | properties of `C` and `Λ` |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -236,7 +264,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 46 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 55 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -271,6 +299,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 46 declarations: 42 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 55 declarations: 51 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

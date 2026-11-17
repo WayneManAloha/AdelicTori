@@ -20,3 +20,6 @@ import AdelicToriLean.AdelicPairing
 import AdelicToriLean.AdelicKernel
 import AdelicToriLean.AdelicModel
 import AdelicToriLean.AdelicTorus
+import AdelicToriLean.RankEmbedding
+import AdelicToriLean.Fdccg
+import AdelicToriLean.AdelicTorusProps

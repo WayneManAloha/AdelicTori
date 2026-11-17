@@ -47,6 +47,17 @@ import Pontryagin
 #print axioms AdelicToriLean.compactSpace_adelicTorus
 #print axioms AdelicToriLean.adelicModelEquiv
 
+-- Theorem fdccg-adelic-tori and the properties of C and Lambda
+#print axioms AdelicToriLean.exists_rank_embedding
+#print axioms AdelicToriLean.dual_additive_torsionFree
+#print axioms AdelicToriLean.fdccg_adelic_tori
+#print axioms AdelicToriLean.isCompact_Cadd
+#print axioms AdelicToriLean.totallyDisconnected_Cadd
+#print axioms AdelicToriLean.An_torsionFree
+#print axioms AdelicToriLean.diag_mem_Cadd_iff
+#print axioms AdelicToriLean.lamEquiv
+#print axioms AdelicToriLean.discreteTopology_Lam
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply
