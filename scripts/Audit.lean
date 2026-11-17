@@ -66,6 +66,14 @@ import Pontryagin
 #print axioms AdelicToriLean.periodic_LB
 #print axioms AdelicToriLean.torsion_B
 
+-- Self-duality of the finite adeles (toward Theorem self-dual-pses)
+#print axioms AdelicToriLean.mem_ZHat_of_psi
+#print axioms AdelicToriLean.exists_psi_ne_zero
+#print axioms AdelicToriLean.chi_injective
+#print axioms AdelicToriLean.chi_surjective
+#print axioms AdelicToriLean.charN_surjective
+#print axioms AdelicToriLean.perp_perp_eq
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply

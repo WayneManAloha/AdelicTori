@@ -25,3 +25,6 @@ import AdelicToriLean.Fdccg
 import AdelicToriLean.AdelicTorusProps
 import AdelicToriLean.SpectrumResolution
 import AdelicToriLean.SpectrumPaper
+import AdelicToriLean.QHatDual
+import AdelicToriLean.QHatSelfDual
+import AdelicToriLean.QHatnDual
