@@ -1,0 +1,19 @@
+import AdelicToriLean
+#print axioms AdelicToriLean.BK_sandwich
+#print axioms AdelicToriLean.endRingEquiv
+#print axioms AdelicToriLean.end_eq_mul
+#print axioms AdelicToriLean.qEnd_eq_mul
+#print axioms AdelicToriLean.stronglyIndecomposable
+#print axioms AdelicToriLean.locallyFree
+#print axioms AdelicToriLean.homogeneous_tZ
+#print axioms AdelicToriLean.primary_component_q
+#print axioms AdelicToriLean.primary_component_other
+#print axioms AdelicToriLean.primary_component_cyclic
+#print axioms AdelicToriLean.free_of_finite_quotient
+#print axioms AdelicToriLean.DegreeOnePrimes.commutes
+#print axioms AdelicToriLean.DegreeOnePrimes.linearEnd_eq_mul
+#print axioms AdelicToriLean.DegreeOnePrimes.mem_OK_of_multiplier
+#print axioms AdelicToriLean.DegreeOnePrimes.dual_mem
+#print axioms AdelicToriLean.DegreeOnePrimes.card_PinvQuot
+#print axioms AdelicToriLean.DegreeOnePrimes.Pinv_eq_sup
+#print axioms AdelicToriLean.DegreeOnePrimes.pow_dvd_norm

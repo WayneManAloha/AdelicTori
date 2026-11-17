@@ -1,0 +1,8 @@
+{
+  "name": "AdelicToriLean",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "hostRequirements": { "cpus": 4, "memory": "16gb", "storage": "32gb" },
+  "postCreateCommand": "curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none && export PATH=$HOME/.elan/bin:$PATH && lake exe cache get && lake build",
+  "remoteEnv": { "PATH": "/home/vscode/.elan/bin:${containerEnv:PATH}" },
+  "customizations": { "vscode": { "extensions": ["leanprover.lean4"] } }
+}

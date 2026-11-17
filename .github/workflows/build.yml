@@ -1,0 +1,26 @@
+name: Lean build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (fetch Mathlib cache, lake build)
+        uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+          build-args: "--wfail"
+      - name: Forbidden tokens
+        run: |
+          if grep -rnE '\bsorry\b|\badmit\b|native_decide|^axiom ' AdelicToriLean AdelicToriLean.lean; then
+            echo "forbidden token found"; exit 1; fi
+      - name: Axiom audit
+        run: |
+          lake env lean scripts/Audit.lean | tee axioms.txt
+          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 18
+          ! grep -q sorryAx axioms.txt
