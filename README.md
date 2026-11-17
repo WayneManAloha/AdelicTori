@@ -2,10 +2,10 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- The 18 audited declarations (`audits/axioms.txt`) are certified under the explicitly stated
+- The 18 audited declarations (`audits/axioms.txt`) were checked in Lean under the explicitly stated
   hypothesis `DegreeOnePrimes K`.
-- The existence of a `DegreeOnePrimes K` sequence is not formally certified here.
-- The manuscript's topological theorems are not formally certified here.
+- The existence of a `DegreeOnePrimes K` sequence is not formally checked in Lean here.
+- The manuscript's topological theorems are not formally checked in Lean here.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
