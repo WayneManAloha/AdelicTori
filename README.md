@@ -2,11 +2,14 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- The 22 audited declarations (`audits/axioms.txt`) were checked in Lean.
+- 36 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+  arithmetic core, 10 for phase (b) infrastructure toward Theorem `fdccg-adelic-tori`, and 4
+  imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
-- The manuscript's topological theorems are not formally checked in Lean here.
+- The manuscript's principal topological theorems are not yet formally checked in Lean here;
+  phase (b) infrastructure is listed below.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
@@ -34,13 +37,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 10 declarations of phase (b) infrastructure (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 22 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 36 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -60,7 +63,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 22 audited Lean declarations.
+The repository contains 36 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -125,10 +128,26 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | lower bound: a group of integers with no free summands has `B/𝒪_K` infinite | `free_of_finite_quotient` (if `B/𝒪_K` is finite, then `B` is free of rank `[K:ℚ]`) | certified (discrete side) |
 | passage to `dim_n(B_K^∨) = 1` via the standard representation of `(B_K/𝒪_K)^∨` | none | paper only (Pontryagin duality, [Lewis 2019, Prop. 1, Lemma 6, Cor. 4]) |
 
+### Theorem *Finite-Dimensional Compact Connected Groups Are Adelic Tori* (`fdccg-adelic-tori`): in progress
+
+The theorem itself is **not yet** certified. Certified ingredients (AdelicTori's own proofs):
+
+| Ingredient used in the paper's proof | Lean declaration | File |
+|---|---|---|
+| no small subgroups of the circle | `subgroup_le_centeredArc` | `Protorus.lean` |
+| the dual of a compact abelian group is discrete | `discreteTopology_dual` | `Protorus.lean` |
+| the dual of a connected abelian group is torsion-free | `dual_torsionFree` | `Protorus.lean` |
+| `p`-adic fractional part `{·}_p : ℚ_p → ℝ/ℤ`, with `{r}_p = r` on `ℤ[1/p]` | `fractP`, `fractP_rat` | `PadicFract.lean` |
+| kernel of `{·}_p` is `ℤ_p`; continuity | `fractP_eq_zero_iff`, `continuous_fractP` | `PadicFract.lean` |
+| `∑_p {r}_p = r (mod 1)` for `r ∈ ℚ` | `sum_fract_rat` | `RatFract.lean` |
+| standard character `ψ(u) = ∑_p {u_p}_p` on Mathlib's finite adeles `𝔸ᶠ[ℤ, ℚ]`, continuous | `psi`, `continuous_psi` | `FiniteAdeleChar.lean` |
+| `ψ` vanishes on `∏_p ℤ_p` | `psi_eq_zero_of_integral` | `FiniteAdeleChar.lean` |
+| diagonal identity `ψ(r) = r (mod 1)` | `psi_algebraMap` | `FiniteAdeleChar.lean` |
+| Pontryagin reflexivity `G ≅ G^∨∨` | `PontryaginDual.toDoubleDual` | vendored (third-party) |
+
 ### Other results of the paper
 
 These are all **paper only**:
-- Theorem *Finite-Dimensional Compact Connected Groups Are Adelic Tori*;
 - *Spectrum of Resolutions*;
 - *Pontryagin Self-Dual Proper Short Exact Sequence*;
 - Lemma `nala-periodic-lca`;
@@ -140,8 +159,8 @@ These are all **paper only**:
 - Corollary *Five Equivalents*;
 - the closing Example.
 
-Mathlib defines the Pontryagin dual but does not yet provide the duality theorem for locally
-compact abelian groups. Formalizing these results is planned for later work.
+Mathlib defines the Pontryagin dual but does not provide the duality theorem; this project uses
+the vendored `pontryagin` library for it (see below).
 
 ## Proof of `End(B_K) = 𝒪_K` in Lean
 
@@ -176,6 +195,10 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/Paper.lean` | paper-facing statements |
 | `AdelicToriLean/Existence.lean` | existence of `DegreeOnePrimes K` (Schur + Kummer–Dedekind) |
 | `AdelicToriLean/Unconditional.lean` | unconditional discrete realisation |
+| `AdelicToriLean/Protorus.lean` | duals of compact / connected abelian groups |
+| `AdelicToriLean/PadicFract.lean` | `p`-adic fractional part |
+| `AdelicToriLean/RatFract.lean` | `∑_p {r}_p = r (mod 1)` |
+| `AdelicToriLean/FiniteAdeleChar.lean` | the standard character of `𝔸ᶠ[ℤ, ℚ]` |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -198,7 +221,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 26 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 36 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -233,6 +256,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 26 declarations: 22 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 36 declarations: 32 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

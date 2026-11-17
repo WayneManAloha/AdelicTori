@@ -11,3 +11,7 @@ import AdelicToriLean.LocalFree
 import AdelicToriLean.Paper
 import AdelicToriLean.Existence
 import AdelicToriLean.Unconditional
+import AdelicToriLean.Protorus
+import AdelicToriLean.PadicFract
+import AdelicToriLean.RatFract
+import AdelicToriLean.FiniteAdeleChar

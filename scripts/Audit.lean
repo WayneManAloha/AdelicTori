@@ -23,6 +23,18 @@ import Pontryagin
 #print axioms AdelicToriLean.DegreeOnePrimes.Pinv_eq_sup
 #print axioms AdelicToriLean.DegreeOnePrimes.pow_dvd_norm
 
+-- Phase (b): protori, fractional parts, the standard character of the finite adeles
+#print axioms AdelicToriLean.subgroup_le_centeredArc
+#print axioms AdelicToriLean.discreteTopology_dual
+#print axioms AdelicToriLean.dual_torsionFree
+#print axioms AdelicToriLean.fractP_rat
+#print axioms AdelicToriLean.fractP_eq_zero_iff
+#print axioms AdelicToriLean.continuous_fractP
+#print axioms AdelicToriLean.sum_fract_rat
+#print axioms AdelicToriLean.continuous_psi
+#print axioms AdelicToriLean.psi_eq_zero_of_integral
+#print axioms AdelicToriLean.psi_algebraMap
+
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
 #print axioms PontryaginDual.toDoubleDual_apply
