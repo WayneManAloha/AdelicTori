@@ -18,6 +18,39 @@ nonarchimedean dimension of every number field is `1`.
 
 The topological parts of the paper (Pontryagin duality, adelic tori, delta-subgroups, the
 adelic Lie algebra) are **not** formalized here. The status of each result is listed below.
+
+## What does it mean that a proof has been checked by Lean?
+
+**Lean is a computer program that checks mathematical proofs.**
+
+A mathematician writes a theorem, its assumptions, and a proof in Lean's precise mathematical language. Lean then checks whether every step of the proof is logically justified.
+
+If the proof passes, Lean has verified that **the stated conclusion follows from the stated assumptions**.
+
+It does **not** mean that:
+- A journal or mathematical institution has certified the result.
+- Lean has checked every theorem in the accompanying paper.
+- Lean has proved assumptions that the formal theorem explicitly takes for granted.
+- The formal theorem necessarily says exactly what the author intended. That correspondence must also be checked by mathematicians.
+
+### What has Lean checked in this repository?
+
+The current release contains 18 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability.
+
+These results assume the existence of a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **That existence assumption has not yet been proved in Lean.**
+
+The manuscript's topological theorems have also not yet been checked in Lean.
+
+The accompanying axiom audit confirms that the 18 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+
+### What does a successful build mean?
+
+When `lake build` completes successfully, Lean has accepted the proofs included in that build.
+
+This is a reproducible mathematical check, not a journal review or a guarantee about claims that have not been formalized.
+
+**In short: Lean checks exactly what we tell it to prove, using exactly the assumptions we give it.**
+
 ## Verify the proofs in GitHub Codespaces
 
 Click the "Open in GitHub Codespaces" button above.
