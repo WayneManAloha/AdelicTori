@@ -1,4 +1,8 @@
 import AdelicToriLean
+#print axioms AdelicToriLean.exists_degreeOnePrimes
+#print axioms AdelicToriLean.schur
+#print axioms AdelicToriLean.exponent_ne_zero
+#print axioms AdelicToriLean.exists_groupOfIntegers
 #print axioms AdelicToriLean.BK_sandwich
 #print axioms AdelicToriLean.endRingEquiv
 #print axioms AdelicToriLean.end_eq_mul

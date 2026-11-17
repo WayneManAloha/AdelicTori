@@ -9,3 +9,5 @@ import AdelicToriLean.Endomorphisms
 import AdelicToriLean.Quotient
 import AdelicToriLean.LocalFree
 import AdelicToriLean.Paper
+import AdelicToriLean.Existence
+import AdelicToriLean.Unconditional

@@ -2,9 +2,10 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- The 18 audited declarations (`audits/axioms.txt`) were checked in Lean under the explicitly stated
-  hypothesis `DegreeOnePrimes K`.
-- The existence of a `DegreeOnePrimes K` sequence is not formally checked in Lean here.
+- The 22 audited declarations (`audits/axioms.txt`) were checked in Lean.
+- The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
+  (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
+  (`exists_groupOfIntegers`).
 - The manuscript's topological theorems are not formally checked in Lean here.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
@@ -33,13 +34,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current release contains 18 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability.
 
-These results assume the existence of a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **That existence assumption has not yet been proved in Lean.**
+These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 18 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 22 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -59,7 +60,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 18 audited Lean declarations.
+The repository contains 22 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -68,11 +69,10 @@ No local Lean installation is required.
 
 | Category | Meaning |
 |---|---|
-| **Certified (conditional on the external input)** | Proved in Lean from the hypothesis `DegreeOnePrimes K` described below. No `sorry`, no new axioms. |
-| **External input** | One hypothesis, stated explicitly as a Lean structure and never proved here. |
+| **Certified** | Checked in Lean, no `sorry`, no new axioms. The discrete theorems are stated for any `D : DegreeOnePrimes K`, and such `D` exists for every number field (`exists_degreeOnePrimes`). |
 | **Paper only** | Established in the paper, not formalized in Lean. |
 
-### The external input
+### The data `DegreeOnePrimes K`
 
 ```lean
 structure DegreeOnePrimes (K) where
@@ -85,11 +85,13 @@ structure DegreeOnePrimes (K) where
 
 This is an infinite sequence of degree-one prime ideals `P k` of `𝒪_K`, lying over pairwise
 distinct rational primes `q k`.
-- Its existence is classical. For example, infinitely many rational primes split completely in a
-  Galois closure of `K`, and each has a degree-one prime of `𝒪_K` above it. This existence is
-  **not** proved in Lean.
-- Every Lean theorem below holds for **every** such sequence.
-- The hypothesis is weaker than the paper's: complete splitting and the paper's rotation of the
+- **Existence is proved in Lean** (`Existence.lean`, `exists_degreeOnePrimes`), without
+  Chebotarev: an integral primitive element `θ` (`exists_integral_primitive`), Schur's theorem on
+  prime divisors of polynomial values (`schur`), a nonzero integer in the conductor of `ℤ[θ]`
+  (`exponent_ne_zero`), and Mathlib's Kummer–Dedekind isomorphism `𝒪_K/p ≅ 𝔽_p[X]/(f̄)` composed
+  with evaluation at a root of `f̄`.
+- Every discrete theorem below holds for **every** such sequence.
+- The data are weaker than the paper's: complete splitting and the paper's rotation of the
   index `i(k)` are not needed.
 
 ## Theorem-to-declaration map
@@ -111,7 +113,8 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | `(B_K/𝒪_K)_{q_k} = 𝔭_k⁻¹/𝒪_K` | `primary_component_q` | `Paper.lean` (`Quotient.lean`) | certified |
 | `(B_K/𝒪_K)_ℓ = 0` for `ℓ ∉ {q_k}` | `primary_component_other` | `Paper.lean` (`Quotient.lean`) | certified |
 | `𝔭_k⁻¹/𝒪_K` cyclic of prime order `q_k` | `primary_component_cyclic` | `Paper.lean` (`Quotient.lean`) | certified |
-| existence of infinitely many suitable primes | input `DegreeOnePrimes K` | `Basic.lean` | external input |
+| existence of infinitely many suitable primes | `exists_degreeOnePrimes` | `Existence.lean` | certified |
+| the discrete realisation for every number field | `exists_groupOfIntegers` | `Unconditional.lean` | certified |
 | `T_K^∨` is a delta-subgroup of `B_K^∨`, density of the diagonal `𝒪_K`, the isomorphisms `B_K^∨ ≅ (T_K^∨ × ℝ·K)/𝒪_K ≅ (ℒ_n(B_K^∨) × ℝ·K)/K` | none | none | paper only (Pontryagin duality) |
 
 ### Paper Theorem *Nonarchimedean Line through a Number Field* (`nonarchimedean-line-number-field`)
@@ -160,7 +163,7 @@ closure nor the rotating index `i(k)`.
 
 | File | Content |
 |---|---|
-| `AdelicToriLean/Basic.lean` | external input `DegreeOnePrimes`, `𝔭_k⁻¹`, `B_K` |
+| `AdelicToriLean/Basic.lean` | the data `DegreeOnePrimes`, `𝔭_k⁻¹`, `B_K` |
 | `AdelicToriLean/Localization.lean` | elements of `B_K` are in `𝔭_k⁻¹` up to integers prime to `q_k` |
 | `AdelicToriLean/Cofactor.lean` | `𝔭_k I_k = (q_k)`; residues of degree-one primes |
 | `AdelicToriLean/Commute.lean` | the commutator `D_t` and the defect estimate |
@@ -171,6 +174,8 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/Quotient.lean` | primary components of `B_K / 𝒪_K` |
 | `AdelicToriLean/LocalFree.lean` | local freeness; `t(ℤ)`-homogeneity; finite quotient ⇒ free |
 | `AdelicToriLean/Paper.lean` | paper-facing statements |
+| `AdelicToriLean/Existence.lean` | existence of `DegreeOnePrimes K` (Schur + Kummer–Dedekind) |
+| `AdelicToriLean/Unconditional.lean` | unconditional discrete realisation |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 
@@ -190,7 +195,7 @@ lake env lean scripts/Audit.lean
 ```
 
 **Continuous integration.** `.github/workflows/build.yml` builds with `--wfail`, rejects
-`sorry`/`admit`/`native_decide`/`axiom`, and checks that all 18 audited declarations depend only
+`sorry`/`admit`/`native_decide`/`axiom`, and checks that all 22 audited declarations depend only
 on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
@@ -204,5 +209,5 @@ Apache License 2.0, copyright 2026 Wayne Lewis. See `LICENSE` and `NOTICE`.
 
 - `lake build` completes with exit code 0, 0 errors, 0 warnings (`audits/FullBuild.log`).
 - The source contains no `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 18 declarations: every paper-facing statement and the
+- `audits/axioms.txt` lists the axioms of 22 declarations: every paper-facing statement and the
   key lemmas. Each depends only on `propext`, `Classical.choice`, `Quot.sound`.

@@ -22,5 +22,5 @@ jobs:
       - name: Axiom audit
         run: |
           lake env lean scripts/Audit.lean | tee axioms.txt
-          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 18
+          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 22
           ! grep -q sorryAx axioms.txt
