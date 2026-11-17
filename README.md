@@ -10,8 +10,7 @@ Development milestone v0.1.0-discrete-core: the discrete arithmetic results have
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
 
-This repository checks in Lean the **discrete algebraic core** of the paper's number-field
-construction: the group of integers `B_K = Σ_k 𝔭_k⁻¹` attached to a number field `K`, its
+This repository contains machine-checked Lean proofs for the discrete algebraic core of the paper's number-field construction: the group of integers `B_K = Σ_k 𝔭_k⁻¹` attached to a number field `K`, its
 endomorphism ring, and the structure of `B_K / 𝒪_K` underlying the statement that the
 nonarchimedean dimension of every number field is `1`.
 
