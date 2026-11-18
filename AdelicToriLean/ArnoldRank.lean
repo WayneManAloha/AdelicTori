@@ -81,7 +81,6 @@ theorem arnold_0_2 (htf : ∀ (m : ℕ) (a : A), 0 < m → m • a = 0 → a = 0
       have hat : (a : A ⧸ F) ∈ ptors (A ⧸ F) p := by
         show p • (a : A ⧸ F) = 0
         rw [← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
-        change p • a ∈ F
         rw [show p • a = (x : A) from ha]; exact hxF
       refine ⟨⟨_, hat⟩, ?_⟩
       apply QuotientAddGroup.eq.mpr

@@ -372,9 +372,6 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8850/8852] Built AdelicToriLean.ArnoldRank (14s)
-warning: AdelicToriLean/ArnoldRank.lean:84:8: Unused tactic linter: `change p • a ∈ F` does nothing
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [8850/8852] Built AdelicToriLean.ArnoldRank (14s)
 ✔ [8851/8852] Built AdelicToriLean (13s)
 Build completed successfully (8852 jobs).
