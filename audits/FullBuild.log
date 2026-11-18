@@ -1,4 +1,4 @@
-⚠ [8768/8847] Replayed Pontryagin.Basic
+⚠ [8769/8852] Replayed Pontryagin.Basic
 warning: vendor/Pontryagin/Pontryagin/Basic.lean:97:2: Try this: 
   letI̵
 
@@ -23,7 +23,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8772/8847] Replayed Pontryagin.PositiveType
+⚠ [8773/8852] Replayed Pontryagin.PositiveType
 warning: vendor/Pontryagin/Pontryagin/PositiveType.lean:326:2: Try this: 
   letI̵
 
@@ -42,12 +42,12 @@ But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 warning: vendor/Pontryagin/Pontryagin/PositiveType.lean:366:6: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
-⚠ [8775/8847] Replayed Pontryagin.DualPolars
+⚠ [8776/8852] Replayed Pontryagin.DualPolars
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:55:19: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:59:19: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:216:50: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:246:22: `ContinuousMap.isOpen_setOf_mapsTo` has been deprecated: Use `ContinuousMap.isOpen_setOfPred_mapsTo` instead
-⚠ [8782/8847] Replayed Pontryagin.Bochner
+⚠ [8783/8852] Replayed Pontryagin.Bochner
 warning: vendor/Pontryagin/Pontryagin/Bochner.lean:1299:2: Try this: 
   haveI̵
 
@@ -80,7 +80,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8783/8847] Replayed Pontryagin.Inversion
+⚠ [8784/8852] Replayed Pontryagin.Inversion
 warning: vendor/Pontryagin/Pontryagin/Inversion.lean:570:2: Try this: 
   haveI̵
 
@@ -225,7 +225,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8784/8847] Replayed Pontryagin.EvalInjective
+⚠ [8785/8852] Replayed Pontryagin.EvalInjective
 warning: vendor/Pontryagin/Pontryagin/EvalInjective.lean:103:2: Try this: 
   haveI̵
 
@@ -306,7 +306,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8786/8847] Replayed Pontryagin.Plancherel
+⚠ [8787/8852] Replayed Pontryagin.Plancherel
 warning: vendor/Pontryagin/Pontryagin/Plancherel.lean:609:2: Try this: 
   haveI̵
 
@@ -323,7 +323,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8788/8847] Replayed Pontryagin.Duality
+⚠ [8789/8852] Replayed Pontryagin.Duality
 warning: vendor/Pontryagin/Pontryagin/Duality.lean:71:2: Try this: 
   letI̵
 
@@ -372,6 +372,9 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-✔ [8849/8851] Built AdelicToriLean.LieDim (14s)
-✔ [8850/8851] Built AdelicToriLean (13s)
-Build completed successfully (8851 jobs).
+⚠ [8850/8852] Built AdelicToriLean.ArnoldRank (14s)
+warning: AdelicToriLean/ArnoldRank.lean:84:8: Unused tactic linter: `change p • a ∈ F` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [8851/8852] Built AdelicToriLean (13s)
+Build completed successfully (8852 jobs).

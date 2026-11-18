@@ -62,3 +62,4 @@ import AdelicToriLean.TorusIff
 import AdelicToriLean.AdelicCover
 import AdelicToriLean.LocalCover
 import AdelicToriLean.LieDim
+import AdelicToriLean.ArnoldRank

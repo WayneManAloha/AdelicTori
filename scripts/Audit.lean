@@ -216,6 +216,9 @@ import Pontryagin
 #print axioms AdelicToriLean.dimNL_nala
 #print axioms AdelicToriLean.dimNL_nala_torus
 #print axioms AdelicToriLean.symmetric_adelic_lie_algebra_dim
+#print axioms AdelicToriLean.arnold_0_2
+#print axioms AdelicToriLean.relIndex_pF
+#print axioms AdelicToriLean.arnold_Zn
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
