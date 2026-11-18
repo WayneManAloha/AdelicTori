@@ -142,7 +142,7 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | **`dim_n(B_K^∨) = dim_n(T_K^∨) = 1`**: `|T_K[p]| ≤ p` for all `p`, and every finite quotient of `T_K` keeps nonzero `q_k`-torsion | `card_ptors_TK_le`, `exists_prank_quot`, `dimN_TK` | certified (`NumberFieldDim.lean`) |
 | lower bound `dim_n(B^∨) ≥ 1` for every group of integers `B`; correspondence of arbitrary delta-subgroups with lattices `F ⊆ B` | none | not yet in Lean |
 
-### Theorem *Finite-Dimensional Compact Connected Groups Are Adelic Tori* (`fdccg-adelic-tori`): certified
+### Theorem *Finite-Dimensional Compact Connected Abelian Groups Are Adelic Tori* (`fdccg-adelic-tori`): certified
 
 **Paper:** if `G` is a protorus with `dim_a G = n`, then `G ≅ (𝔸ⁿ/C)/Λ` for a torsion-free profinite
 group `C` and a discrete cocompact `Λ ≅ ℚⁿ`.
