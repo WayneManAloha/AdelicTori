@@ -295,7 +295,8 @@ Calibration with the intrinsic local count `dim_{ℚ_p}(L_p/Tor L_p) + dim_{𝔽
 `T_p`) + `p`-rank`(A) = n` (`ArnoldRank.lean`). Identifying these two terms with
 `dim_{ℚ_p}(L_p/Tor L_p)` and `dim_{𝔽_p} L_p[p]` for `L = Lie_n(A^∨)` is a duality argument on paper.
 
-Not yet in Lean: the uniqueness statements the paper cites from HHR Theorem 3.3; the
+Not yet in Lean: HHR Theorem 3.3 (a periodic LCA group `G` with compact open subgroup `C` is
+isomorphic to the local product `∏'_p (G_p, C_p)`), which the paper uses for `nala(G)`; the
 representation `Lie_n(G) ≅ ℚ̂ⁿ/C` with its local pieces `ℚ_pⁿ/C_p` and elementary divisors; surjectivity
 of the restriction `𝒱_n(G) → Lie_n(G)`.
 
