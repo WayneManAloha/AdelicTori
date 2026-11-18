@@ -59,3 +59,6 @@ import AdelicToriLean.DimLattice
 import AdelicToriLean.NumberFieldDimK
 import AdelicToriLean.DeltaLattice
 import AdelicToriLean.TorusIff
+import AdelicToriLean.AdelicCover
+import AdelicToriLean.LocalCover
+import AdelicToriLean.LieDim

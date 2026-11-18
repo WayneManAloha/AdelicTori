@@ -207,6 +207,15 @@ import Pontryagin
 #print axioms AdelicToriLean.mem_Flat_of_Tperp
 #print axioms AdelicToriLean.dimN_delta
 #print axioms AdelicToriLean.dimN_eq_zero_iff_torus
+#print axioms AdelicToriLean.rank_Vn
+#print axioms AdelicToriLean.chiV_surjective
+#print axioms AdelicToriLean.chiV_injective
+#print axioms AdelicToriLean.dP_dual
+#print axioms AdelicToriLean.homNalaEquiv
+#print axioms AdelicToriLean.dP_congr
+#print axioms AdelicToriLean.dimNL_nala
+#print axioms AdelicToriLean.dimNL_nala_torus
+#print axioms AdelicToriLean.symmetric_adelic_lie_algebra_dim
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

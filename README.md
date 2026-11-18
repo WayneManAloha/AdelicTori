@@ -2,12 +2,12 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 201 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 210 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, 21 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, 21 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, 9 for `dim_n Lie_n(G) = n` and the adelic covering module, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -50,7 +50,7 @@ These results are stated for a particular infinite sequence of prime ideals, cal
 
 The theorem map below gives the status of each topological theorem of the manuscript.
 
-The accompanying axiom audit confirms that the 201 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 210 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -70,7 +70,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 201 audited Lean declarations.
+The repository contains 210 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -260,7 +260,7 @@ a compact open subgroup), and evaluation at `1` is an algebraic isomorphism `nal
 | every `f` in the compact open subgroup `K_P`, `P = q⁻¹⟨q(f 1)⟩` | `periodic_nala` | `NalaPeriodic.lean` |
 | **Lemma `nala-periodic-lca`** | `nala_periodic_lca` | `NalaPeriodic.lean` |
 
-### Theorem *Symmetric Adelic Lie Algebra* (`symmetric-adelic-lie-algebra`): certified except `dim_n`
+### Theorem *Symmetric Adelic Lie Algebra* (`symmetric-adelic-lie-algebra`): certified
 
 For a commutative topological group `G`, with all hom-spaces in the compact-open topology,
 `nala G = Hom(ℤ̂, G)`, `arla G = Hom(ℝ, G)`, `adla G = Hom(ℤ̂ × ℝ, G)`.
@@ -276,8 +276,21 @@ For a commutative topological group `G`, with all hom-spaces in the compact-open
 | **`arla(G) ≅ ℝⁿ`**, `n = dim_a G` | `arlaEquiv` (`psiA_injective`), `arla_real` | `ArlaReal.lean` |
 | **Theorem `symmetric-adelic-lie-algebra`**: decomposition, `nala(G)` divisible periodic LCA, `arla(G) ≅ ℝⁿ`, adelic exponential | `symmetric_adelic_lie_algebra_fd` | `ArlaReal.lean` |
 
-Not yet in Lean: `dim_n nala(G) = n = dim_a arla(G)` (needs `dim_n`, from Lewis 2019's standard
-representation), and the uniqueness statements the paper cites from HHR Theorem 3.3.
+**`dim_n Lie_n(G) = n = dim_a Lie_a(G)`** (`symmetric_adelic_lie_algebra_dim`, `LieDim.lean`).
+For a topological abelian group `L` and a prime `p`, `d_p(L) := dim_{ℚ_p} Hom(ℚ_p, L)` (continuous
+homomorphisms, `ℚ_p` acting by precomposition) and `dim_n L := sup_p d_p(L)` (`dP`, `dimNL`,
+`LocalCover.lean`). `d_p` is invariant under topological isomorphism (`dP_congr`). For
+`L_p ≅ ℚ_p^{n-k} × (ℚ_p/ℤ_p)^k` it counts the factors, `(n-k) + k`. The proof:
+`Hom(ℚ_p, Lie_n G) ≅ Hom(ℚ_p, G)` (`homNalaEquiv`, `ℚ_p` is a `ℤ̂`-module),
+`Hom(ℚ_p, A^∨) ≅ ℚ_pⁿ` (`dP_dual`, local characters `x ↦ e(fr_p(c x))` from the self-duality of
+`ℚ̂`: `chiV_surjective`, `chiV_injective`), so `d_p(Lie_n G) = n` at every `p` (`dimNL_nala`); no
+torus-free hypothesis. Torus case `G = (ℤⁿ)^∨`, `Lie_n(G) ≅ (ℚ/ℤ)ⁿ`: `dimNL_nala_torus`. The
+global adelic covering module `𝒱_n(G) = Hom(ℚ̂, G)` is a free `ℚ̂`-module of rank `n` (`rank_Vn`,
+`AdelicCover.lean`). `dim_n Lie_n(G) = n` is distinct from `dim_n G` (between `0` and `n`).
+
+Not yet in Lean: the uniqueness statements the paper cites from HHR Theorem 3.3; the
+representation `Lie_n(G) ≅ ℚ̂ⁿ/C` with its local pieces `ℚ_pⁿ/C_p` and elementary divisors; surjectivity
+of the restriction `𝒱_n(G) → Lie_n(G)`.
 
 ### Theorem *Topological Characterisation via Nonarchimedean Exponential* (`topological-characterisation-nonarchimedean-exponential`): certified
 
@@ -484,7 +497,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 201 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 210 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -519,6 +532,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 201 declarations: 197 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 210 declarations: 206 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.
