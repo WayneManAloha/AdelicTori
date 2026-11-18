@@ -343,8 +343,11 @@ formalized. `G` is torus-free (`TorusFree`) if no subgroup is topologically isom
 
 These are all **paper only**:
 - Remark *Dense Subgroups and Dual Topologies*;
-- Corollary *Five Equivalents*;
 - the closing Example.
+
+Corollary *Five Equivalents* (`G ≅ H`, `td(G) ≅ td(H)`, `κ(G) ≅ κ(H)`, `a(G) ≅ a(H)`, `G` homeomorphic
+to `H`) is a **cited result**, not formalized: its proof rests on Dikranjan–Lewis–Loth–Mader
+(Theorem 12, Proposition 9(3)) and Hofmann–Morris, *The Structure of Compact Groups*, Theorem 8.58.
 
 Mathlib defines the Pontryagin dual but does not provide the duality theorem; this project uses
 the vendored `pontryagin` library for it (see below).
