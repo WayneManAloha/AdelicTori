@@ -120,6 +120,10 @@ import Pontryagin
 #print axioms AdelicToriLean.not_isOpenMap_expn
 #print axioms AdelicToriLean.not_locallyCompact_td
 #print axioms AdelicToriLean.topological_characterisation
+#print axioms AdelicToriLean.exists_int_multiple
+#print axioms AdelicToriLean.finite_roots_circle
+#print axioms AdelicToriLean.exists_delta
+#print axioms AdelicToriLean.topological_characterisation_of_fd
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

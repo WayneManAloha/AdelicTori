@@ -41,3 +41,4 @@ import AdelicToriLean.ZHatAction
 import AdelicToriLean.NonarchExp
 import AdelicToriLean.DeltaSubgroup
 import AdelicToriLean.TopCharacterisation
+import AdelicToriLean.DeltaExistence

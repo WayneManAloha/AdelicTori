@@ -2,12 +2,12 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 114 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 118 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 3 for the
   decomposition of the adelic Lie algebra, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -41,13 +41,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 3 for the decomposition of the adelic Lie algebra, 23 for Theorem `topological-characterisation-nonarchimedean-exponential` and its ingredients (see the theorem map), and 4 imported duality declarations.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 3 for the decomposition of the adelic Lie algebra, 23 for Theorem `topological-characterisation-nonarchimedean-exponential` and its ingredients, 4 for the existence of delta-subgroups (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 114 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 118 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -67,7 +67,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 114 audited Lean declarations.
+The repository contains 118 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -194,8 +194,7 @@ pushout of `C'` along `ℤⁿ ↪ B`.
 (`Spectrum.spectrumEquiv`, in the generality in which the paper's proof runs); the paper-facing
 form is `spectrum_of_resolutions`: from `G ≃ₜ* (C' × ℝⁿ)/ℤⁿ` it produces `G ≃ₜ* (L_B × ℝⁿ)/B`. The
 delta-subgroup hypothesis is used in the paper only to make `C'` profinite; the Lean statements
-about `L_B` assume what they use (`C'` Hausdorff, resp. compact). Delta-subgroups themselves are not
-yet defined in Lean.
+about `L_B` assume what they use (`C'` Hausdorff, resp. compact). Delta-subgroups are defined in `DeltaSubgroup.lean` (`IsDelta`) and exist by `exists_delta`.
 
 | Paper claim | Lean declaration | File |
 |---|---|---|
@@ -273,8 +272,13 @@ open in `td(G)`.
 | `Δ` not open in `td(G)`; `exp_n` not open; `td(G)` not locally compact | `not_isOpen_delta`, `not_isOpenMap_expn`, `not_locallyCompact_td` | `TopCharacterisation.lean` |
 | **Theorem `topological-characterisation-nonarchimedean-exponential`** | `topological_characterisation` | `TopCharacterisation.lean` |
 
-The theorem takes a delta-subgroup `Δ` as input; the existence of delta-subgroups of a
-finite-dimensional protorus is not yet in Lean.
+| **every finite-dimensional protorus has a delta-subgroup**, `G/Δ ≅ (ℝ/ℤ)^{dim_a G}` | `exists_delta` | `DeltaExistence.lean` |
+| unconditional form: `td(G)` not locally compact, `exp_n` not open | `topological_characterisation_of_fd` | `DeltaExistence.lean` |
+
+`exists_delta`: with `ι : G^∨ → ℚⁿ` injective, `ℤⁿ ⊆ ι(G^∨)`, and characters `d_j` with
+`ι(d_j) = e_j`, `Δ = ker(g ↦ (d_j(g))_j)`. Surjectivity of `G → (ℝ/ℤ)ⁿ` comes from the adelic
+characters `Φ_ι(a)` and double duality; `Δ` is totally disconnected because every character
+maps `Δ` into a finite group of roots of unity.
 
 ### Other results of the paper
 
@@ -352,6 +356,7 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/NonarchExp.lean` | `exp_n : nala(G) → td(G)` |
 | `AdelicToriLean/DeltaSubgroup.lean` | delta-subgroups; `K_Δ` open; `K_Δ ≅ Δ` |
 | `AdelicToriLean/TopCharacterisation.lean` | **Theorem `topological-characterisation-nonarchimedean-exponential`** |
+| `AdelicToriLean/DeltaExistence.lean` | existence of delta-subgroups |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -374,7 +379,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 114 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 118 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -409,6 +414,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 114 declarations: 110 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 118 declarations: 114 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.
