@@ -94,6 +94,19 @@ import Pontryagin
 #print axioms AdelicToriLean.dualProd
 #print axioms AdelicToriLean.middleSelfDual
 #print axioms AdelicToriLean.self_dual_pses
+#print axioms AdelicToriLean.homProd
+#print axioms AdelicToriLean.adlaEquiv
+#print axioms AdelicToriLean.symmetric_adelic_lie_algebra
+#print axioms AdelicToriLean.denseRange_iZ
+#print axioms AdelicToriLean.isOpen_nsmulZ
+#print axioms AdelicToriLean.exists_zhatHom
+#print axioms AdelicToriLean.zhatHom_ext
+#print axioms AdelicToriLean.range_totallyDisconnected
+#print axioms AdelicToriLean.continuous_expn
+#print axioms AdelicToriLean.expn_injective
+#print axioms AdelicToriLean.range_expn
+#print axioms AdelicToriLean.map_td_le
+#print axioms AdelicToriLean.nonarchimedean_exponential
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

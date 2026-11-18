@@ -2,10 +2,11 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 88 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 101 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
-  `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, and 4
-  imported from the vendored Pontryagin duality library.
+  `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 3 for the
+  decomposition of the adelic Lie algebra, 10 for the nonarchimedean exponential and the
+  `ℤ̂`-action, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -39,13 +40,13 @@ It does **not** mean that:
 
 ### What has Lean checked in this repository?
 
-The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients (see the theorem map), and 4 imported duality declarations.
+The current version contains 22 machine-checked declarations concerning the arithmetic structure of \(B_K\), including its endomorphism ring and strong indecomposability, 29 declarations for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 3 for the decomposition of the adelic Lie algebra, 10 for the nonarchimedean exponential (see the theorem map), and 4 imported duality declarations.
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 88 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 101 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -65,7 +66,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 88 audited Lean declarations.
+The repository contains 101 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -229,12 +230,40 @@ injective with discrete image, the second is continuous, surjective and open, `L
 | **`L × ℝⁿ ≅ (L × ℝⁿ)^∨`** | `middleSelfDual` | `SelfDualPSES.lean` |
 | **Theorem `self-dual-pses`** | `self_dual_pses` | `SelfDualPSES.lean` |
 
+### Theorem *Symmetric Adelic Lie Algebra* (`symmetric-adelic-lie-algebra`): decomposition certified
+
+For a commutative topological group `G`, with all hom-spaces in the compact-open topology,
+`nala G = Hom(ℤ̂, G)`, `arla G = Hom(ℝ, G)`, `adla G = Hom(ℤ̂ × ℝ, G)`.
+
+| Paper claim | Lean declaration | File |
+|---|---|---|
+| `Hom(X × Y, G) ≅ Hom(X, G) × Hom(Y, G)` (topological isomorphism) | `homProd` | `AdelicLieAlgebra.lean` |
+| `adla(G) ≅ nala(G) × arla(G)` by restriction | `adlaEquiv`, `symmetric_adelic_lie_algebra` | `AdelicLieAlgebra.lean` |
+
+Not yet in Lean: `dim_n nala(G)`, `arla(G) ≅ ℝⁿ` for protori.
+
+### Theorem *Topological Characterisation via Nonarchimedean Exponential*: exponential certified
+
+`td(G)` is the union of the compact totally disconnected subgroups of `G` (`tdSet`). For a
+commutative Hausdorff topological group `G`:
+
+| Paper claim | Lean declaration | File |
+|---|---|---|
+| `ℤ` dense in `ℤ̂`; `dℤ̂` open | `denseRange_iZ`, `isOpen_nsmulZ` | `ZHatAction.lean` |
+| canonical `ℤ̂`-action: `x ∈ P` profinite abelian gives a unique continuous `f : ℤ̂ → P`, `f 1 = x` | `exists_zhatHom`, `zhatHom_ext` | `ZHatAction.lean` |
+| image of `ℤ̂` under a continuous homomorphism is totally disconnected | `range_totallyDisconnected` | `NonarchExp.lean` |
+| `exp_n(f) = f(1)` continuous, injective | `continuous_expn`, `expn_injective` | `NonarchExp.lean` |
+| image of `exp_n` = `td(G)`; `td(G)` a subgroup | `range_expn`, `td`, `mem_td_iff` | `NonarchExp.lean` |
+| `td` fully invariant (functorial) | `map_td_le`, `td_fullyInvariant` | `NonarchExp.lean` |
+| `exp_n : nala(G) → td(G)` continuous algebraic isomorphism | `nonarchimedean_exponential`, `expnEquiv` | `NonarchExp.lean` |
+
+Not yet in Lean: non-openness of `exp_n`, `td(G)` not locally compact, `K_Δ ≅ Δ` (needs
+delta-subgroups).
+
 ### Other results of the paper
 
 These are all **paper only**:
 - Lemma `nala-periodic-lca`;
-- *Symmetric Adelic Lie Algebra*;
-- *Topological Characterisation via Nonarchimedean Exponential*;
 - *Adelic Exponential Yields Lie Category*;
 - *The Kumu*;
 - Remark *Dense Subgroups and Dual Topologies*;
@@ -302,6 +331,9 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/RealDual.lean` | `ℝⁿ ≅ (ℝⁿ)^∨` |
 | `AdelicToriLean/DualProd.lean` | dual of a product |
 | `AdelicToriLean/SelfDualPSES.lean` | **Theorem `self-dual-pses`** |
+| `AdelicToriLean/AdelicLieAlgebra.lean` | `adla(G) ≅ nala(G) × arla(G)` |
+| `AdelicToriLean/ZHatAction.lean` | density of `ℤ` in `ℤ̂`; the canonical `ℤ̂`-action |
+| `AdelicToriLean/NonarchExp.lean` | `exp_n : nala(G) → td(G)` |
 | `scripts/Audit.lean` | `#print axioms` for the paper-facing statements and key lemmas |
 | `audits/` | full build log and axiom audit output |
 | `vendor/Pontryagin/` | third-party Pontryagin duality library (see below) |
@@ -324,7 +356,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 88 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 101 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -359,6 +391,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 88 declarations: 84 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 101 declarations: 97 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

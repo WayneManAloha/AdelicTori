@@ -36,3 +36,6 @@ import AdelicToriLean.RealDual
 import AdelicToriLean.ModelProper
 import AdelicToriLean.DualProd
 import AdelicToriLean.SelfDualPSES
+import AdelicToriLean.AdelicLieAlgebra
+import AdelicToriLean.ZHatAction
+import AdelicToriLean.NonarchExp
