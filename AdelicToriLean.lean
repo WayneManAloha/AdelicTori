@@ -57,3 +57,5 @@ import AdelicToriLean.NonarchDim
 import AdelicToriLean.NumberFieldDim
 import AdelicToriLean.DimLattice
 import AdelicToriLean.NumberFieldDimK
+import AdelicToriLean.DeltaLattice
+import AdelicToriLean.TorusIff

@@ -2,12 +2,12 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 196 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 201 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, 16 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, 21 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -50,7 +50,7 @@ These results are stated for a particular infinite sequence of prime ideals, cal
 
 The theorem map below gives the status of each topological theorem of the manuscript.
 
-The accompanying axiom audit confirms that the 196 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 201 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -70,7 +70,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 196 audited Lean declarations.
+The repository contains 201 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -144,7 +144,8 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | lower bound `dim_n(B^∨) ≥ 1` for every group of integers `B` (`IsGroupOfIntegers`: `𝒪_K ⊆ B ⊆ K`, not finitely generated, `End(B) = 𝒪_K`) | `one_le_dimN_B` | certified (`NumberFieldDimK.lean`) |
 | `B_K` is a group of integers with `dim_n(B_K^∨) = 1` | `isGroupOfIntegers_BK`, `dimN_BK` | certified |
 | **Theorem `nonarchimedean-line-number-field`: `dim_n K = min_B dim_n(B^∨) = 1`** | `dimNK_eq_one` | certified |
-| correspondence of arbitrary delta-subgroups `C` with lattices `C^⊥ ⊆ B` | none | not yet in Lean |
+| every delta-subgroup `C` of `A^∨` satisfies `C = (C^⊥)^⊥`, and `dim_n(A/C^⊥) = dim_n(A/F)`: `dim_n G := dim_n C` is independent of `C` (Lewis 2019, Lemma 6, Cor. 4) | `mem_iff_perp`, `exists_pow_ker`, `dimN_delta` | certified (`DeltaLattice.lean`) |
+| `0 ≤ dim_n G ≤ dim_a G`, and `dim_n G = 0` iff `{0}` is a delta-subgroup, i.e. `G ≅ (ℝ/ℤ)^{dim_a G}` | `dimN_le`, `dimN_eq_zero_iff_torus` | certified (`TorusIff.lean`) |
 
 ### Theorem *Finite-Dimensional Compact Connected Abelian Groups Are Adelic Tori* (`fdccg-adelic-tori`): certified
 
@@ -483,7 +484,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 196 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 201 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -518,6 +519,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 196 declarations: 192 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 201 declarations: 197 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

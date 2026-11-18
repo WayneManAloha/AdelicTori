@@ -202,6 +202,11 @@ import Pontryagin
 #print axioms AdelicToriLean.dimN_BK
 #print axioms AdelicToriLean.isGroupOfIntegers_BK
 #print axioms AdelicToriLean.dimNK_eq_one
+#print axioms AdelicToriLean.exists_pow_ker
+#print axioms AdelicToriLean.mem_iff_perp
+#print axioms AdelicToriLean.mem_Flat_of_Tperp
+#print axioms AdelicToriLean.dimN_delta
+#print axioms AdelicToriLean.dimN_eq_zero_iff_torus
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
