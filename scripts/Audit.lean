@@ -124,6 +124,12 @@ import Pontryagin
 #print axioms AdelicToriLean.finite_roots_circle
 #print axioms AdelicToriLean.exists_delta
 #print axioms AdelicToriLean.topological_characterisation_of_fd
+#print axioms AdelicToriLean.torsion_preimage
+#print axioms AdelicToriLean.mem_Kdelta_of_genZ
+#print axioms AdelicToriLean.isCompact_Kdelta
+#print axioms AdelicToriLean.periodic_nala
+#print axioms AdelicToriLean.locallyCompact_nala
+#print axioms AdelicToriLean.nala_periodic_lca
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
