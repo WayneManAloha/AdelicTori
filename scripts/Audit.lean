@@ -151,6 +151,13 @@ import Pontryagin
 #print axioms AdelicToriLean.adelic_exponential_lie_category
 #print axioms AdelicToriLean.exists_char_of_not_dense
 #print axioms AdelicToriLean.dense_range_expa
+#print axioms AdelicToriLean.map_kumu_le
+#print axioms AdelicToriLean.not_torusFree_of_injective
+#print axioms AdelicToriLean.expa_vθ_injective
+#print axioms AdelicToriLean.mem_kumu_iff
+#print axioms AdelicToriLean.kumuEquiv
+#print axioms AdelicToriLean.dense_kumu
+#print axioms AdelicToriLean.kumu_theorem
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

@@ -47,3 +47,4 @@ import AdelicToriLean.AdelicExp
 import AdelicToriLean.ArlaReal
 import AdelicToriLean.LieCategory
 import AdelicToriLean.ArcDense
+import AdelicToriLean.Kumu
