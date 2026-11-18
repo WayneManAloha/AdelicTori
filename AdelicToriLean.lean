@@ -53,3 +53,5 @@ import AdelicToriLean.AdelicDual
 import AdelicToriLean.ArcComponent
 import AdelicToriLean.ZassenhausTopology
 import AdelicToriLean.ZassenhausRealisation
+import AdelicToriLean.NonarchDim
+import AdelicToriLean.NumberFieldDim

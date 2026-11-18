@@ -186,6 +186,14 @@ import Pontryagin
 #print axioms AdelicToriLean.connectedSpace_of_rank
 #print axioms AdelicToriLean.mem_TK_iff
 #print axioms AdelicToriLean.zassenhaus_topological
+#print axioms AdelicToriLean.card_ptors_quot_le
+#print axioms AdelicToriLean.dimSet_quot
+#print axioms AdelicToriLean.dimN_quot
+#print axioms AdelicToriLean.dimN_eq_of_finiteIndex
+#print axioms AdelicToriLean.dimN_eq_one
+#print axioms AdelicToriLean.card_ptors_TK_le
+#print axioms AdelicToriLean.exists_prank_quot
+#print axioms AdelicToriLean.dimN_TK
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
