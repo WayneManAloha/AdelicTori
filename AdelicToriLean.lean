@@ -50,3 +50,4 @@ import AdelicToriLean.ArcDense
 import AdelicToriLean.Kumu
 import AdelicToriLean.DualTopology
 import AdelicToriLean.AdelicDual
+import AdelicToriLean.ArcComponent

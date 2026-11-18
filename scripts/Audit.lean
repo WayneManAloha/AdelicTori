@@ -172,6 +172,12 @@ import Pontryagin
 #print axioms AdelicToriLean.PhiZQ_surjective
 #print axioms AdelicToriLean.adeleModZDual
 #print axioms AdelicToriLean.closing_example
+#print axioms AdelicToriLean.range_expa_subset
+#print axioms AdelicToriLean.pathComponent_subset_range
+#print axioms AdelicToriLean.range_expa_eq_pathComponent
+#print axioms AdelicToriLean.map_arcSub_le
+#print axioms AdelicToriLean.arcSub_divisible
+#print axioms AdelicToriLean.not_isOpenMap_expa
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

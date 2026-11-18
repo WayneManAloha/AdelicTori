@@ -2,12 +2,12 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 166 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 172 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -47,7 +47,7 @@ These results are stated for a particular infinite sequence of prime ideals, cal
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 166 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 172 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -67,7 +67,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 166 audited Lean declarations.
+The repository contains 172 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -326,9 +326,13 @@ torus-free finite-dimensional protorus `G`, `n = dim_a G`, the kumu is a dense, 
 subgroup of `G`, algebraically isomorphic to `ℚⁿ`. The paper cites \[DLLM, Theorem 15\]; the Lean
 proof is self-contained.
 
-In Lean `a(G)` is the image `exp_a(Hom(ℝ, G))` of the archimedean exponential (`arcSub`); the paper's
-`a(G)` is the arc component of `0`, and the identification of the two (Hofmann–Morris) is not
-formalized. `G` is torus-free (`TorusFree`) if no subgroup is topologically isomorphic to `(ℝ/ℤ)^k`,
+`a(G)` is the path component of `0`. In Lean `arcSub` is the image `exp_a(Hom(ℝ, G))`, and
+`range_expa_eq_pathComponent` (`ArcComponent.lean`) proves it equals the path component of `0`
+(Hofmann–Morris, *The Structure of Compact Groups*, 4th ed., Theorem 8.30, p. 430). The Lean proof
+lifts `χ ∘ γ` through `exp : ℝ → 𝕋` for each character `χ` and path `γ`. Also certified:
+`a(G)` is divisible (`arcSub_divisible`) and fully invariant (`map_arcSub_le`), and for torus-free
+`G` with `dim_a G > 0` the continuous injective `exp_a` is not open (`not_isOpenMap_expa`). For a
+torus `exp_a` is open and has nonzero kernel, so torus-freeness is needed there. `G` is torus-free (`TorusFree`) if no subgroup is topologically isomorphic to `(ℝ/ℤ)^k`,
 `k ≥ 1`.
 
 | Ingredient | Lean declaration | File |
@@ -337,6 +341,8 @@ formalized. `G` is torus-free (`TorusFree`) if no subgroup is topologically isom
 | torus-free forces `θ ↦ exp_a(v_θ)` injective (a period gives an injective `ℝ/ℤ → G`) | `not_torusFree_of_injective`, `expa_vθ_injective` | `Kumu.lean` |
 | `x ∈ κ(G)` iff `x = exp_a(v_θ)`, `θ ∈ (2πℚ)ⁿ` | `mem_kumu_iff` | `Kumu.lean` |
 | **`κ(G) ≅ ℚⁿ`**, `r ↦ exp_a(v_{2πr})`; `κ(G)` dense | `kumuEquiv`, `dense_kumu` | `Kumu.lean` |
+| `a(G) = exp_a(Hom(ℝ, G))` is the path component of `0` | `range_expa_eq_pathComponent` | `ArcComponent.lean` |
+| `a(G)` divisible, fully invariant; `exp_a` not open | `arcSub_divisible`, `map_arcSub_le`, `not_isOpenMap_expa` | `ArcComponent.lean` |
 | **Theorem `kumu`** | `kumu_theorem` | `Kumu.lean` |
 
 ### Remark *Dense Subgroups and Dual Topologies* (`dense-subgroups-dual-topologies`): certified
@@ -463,7 +469,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 166 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 172 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -498,6 +504,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 166 declarations: 162 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 172 declarations: 168 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.
