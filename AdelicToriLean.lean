@@ -43,3 +43,5 @@ import AdelicToriLean.DeltaSubgroup
 import AdelicToriLean.TopCharacterisation
 import AdelicToriLean.DeltaExistence
 import AdelicToriLean.NalaPeriodic
+import AdelicToriLean.AdelicExp
+import AdelicToriLean.ArlaReal

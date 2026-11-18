@@ -130,6 +130,15 @@ import Pontryagin
 #print axioms AdelicToriLean.periodic_nala
 #print axioms AdelicToriLean.locallyCompact_nala
 #print axioms AdelicToriLean.nala_periodic_lca
+#print axioms AdelicToriLean.pow_surjective
+#print axioms AdelicToriLean.tdSet_divisible
+#print axioms AdelicToriLean.nala_divisible
+#print axioms AdelicToriLean.continuous_expAd
+#print axioms AdelicToriLean.expAd_eq
+#print axioms AdelicToriLean.psiA_injective
+#print axioms AdelicToriLean.arlaEquiv
+#print axioms AdelicToriLean.arla_real
+#print axioms AdelicToriLean.symmetric_adelic_lie_algebra_fd
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
