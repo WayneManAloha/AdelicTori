@@ -47,19 +47,29 @@ theorem finite_roots_circle {m : ℕ} (hm : 0 < m) : {z : Circle | z ^ m = 1}.Fi
 variable (G : Type*) [CommGroup G] [TopologicalSpace G] [IsTopologicalGroup G]
   [CompactSpace G] [ConnectedSpace G] [T2Space G]
 
-/-- **Existence of delta-subgroups.** A finite-dimensional protorus `G` has a delta-subgroup
-`Δ`, `G/Δ ≅ (ℝ/ℤ)ⁿ` with `n = dim_a G`. -/
-theorem exists_delta [FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDual G))] :
-    ∃ Δ : Subgroup G, IsDelta Δ (dimA G) := by
-  have : DiscreteTopology (PontryaginDual G) := discreteTopology_dual
-  obtain ⟨ι, hι, hZ⟩ := exists_rank_embedding (dual_additive_torsionFree G)
-  choose d hd using hZ
-  set χ : Fin (dimA G) → PontryaginDual G := fun j => Additive.toMul (d j)
-  set q : G →* Torus (dimA G) :=
-    { toFun := fun x j => χ j x
-      map_one' := by funext j; exact map_one (χ j)
-      map_mul' := fun x y => by funext j; exact map_mul (χ j) x y }
-  have hqc : Continuous q := continuous_pi fun j => (χ j).continuous
+/-- `q(g) = (d_j(g))_j : G → (ℝ/ℤ)ⁿ`. -/
+def qmap {n : ℕ} (d : Fin n → Additive (PontryaginDual G)) : G →* Torus n where
+  toFun x j := Additive.toMul (d j) x
+  map_one' := by funext j; exact map_one (Additive.toMul (d j))
+  map_mul' x y := by funext j; exact map_mul (Additive.toMul (d j)) x y
+
+omit [IsTopologicalGroup G] [CompactSpace G] [ConnectedSpace G] [T2Space G] in
+theorem qmap_apply {n : ℕ} (d : Fin n → Additive (PontryaginDual G)) (x : G) (j : Fin n) :
+    qmap G d x j = Additive.toMul (d j) x := rfl
+
+omit [IsTopologicalGroup G] [CompactSpace G] [ConnectedSpace G] [T2Space G] in
+theorem continuous_qmap {n : ℕ} (d : Fin n → Additive (PontryaginDual G)) :
+    Continuous (qmap G d) := continuous_pi fun j => (Additive.toMul (d j)).continuous
+
+omit [ConnectedSpace G] in
+/-- **`ker q` is a delta-subgroup**, for `ι : G^∨ → ℚⁿ` injective and `ι(d_j) = e_j`. -/
+theorem ker_qmap_isDelta [DiscreteTopology (PontryaginDual G)] {n : ℕ}
+    {ι : Additive (PontryaginDual G) →+ (Fin n → ℚ)} (hι : Function.Injective ι)
+    {d : Fin n → Additive (PontryaginDual G)} (hd : ∀ j, ι (d j) = Pi.single j 1) :
+    IsDelta (qmap G d).ker n := by
+  set χ : Fin n → PontryaginDual G := fun j => Additive.toMul (d j)
+  set q : G →* Torus n := qmap G d
+  have hqc : Continuous q := continuous_qmap G d
   -- `q` is surjective
   have hqs : Function.Surjective q := by
     intro t
@@ -70,7 +80,7 @@ theorem exists_delta [FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDu
       congr 1
       field_simp
     choose x hx using hx
-    set a : An (dimA G) := ∑ j, Pi.single j ((0 : QHat), -x j)
+    set a : An (n) := ∑ j, Pi.single j ((0 : QHat), -x j)
     obtain ⟨g, hg⟩ := (PontryaginDual.toDoubleDual G).surjective (Phi ι a)
     refine ⟨g, funext fun j => ?_⟩
     show χ j g = t j
@@ -135,13 +145,22 @@ theorem exists_delta [FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDu
     · show f ⟨b, hb⟩ ∉ ({ψ a} : Set Circle)
       exact fun h => hψ (h.symm)
   -- `G/Δ ≅ (ℝ/ℤ)ⁿ`
-  set e0 : G ⧸ Δ ≃* Torus (dimA G) := QuotientGroup.quotientKerEquivOfSurjective q hqs
+  set e0 : G ⧸ Δ ≃* Torus (n) := QuotientGroup.quotientKerEquivOfSurjective q hqs
   have hcont : Continuous e0 :=
     (QuotientGroup.isQuotientMap_mk Δ).continuous_iff.mpr hqc
   set hom := hcont.homeoOfEquivCompactToT2 (f := e0.toEquiv)
-  exact ⟨Δ, ⟨hΔc, hTD, ⟨{ e0 with
+  exact ⟨hΔc, hTD, ⟨{ e0 with
     continuous_toFun := hcont
-    continuous_invFun := hom.symm.continuous }⟩⟩⟩
+    continuous_invFun := hom.symm.continuous }⟩⟩
+
+/-- **Existence of delta-subgroups.** A finite-dimensional protorus `G` has a delta-subgroup
+`Δ`, `G/Δ ≅ (ℝ/ℤ)ⁿ` with `n = dim_a G`. -/
+theorem exists_delta [FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDual G))] :
+    ∃ Δ : Subgroup G, IsDelta Δ (dimA G) := by
+  have : DiscreteTopology (PontryaginDual G) := discreteTopology_dual
+  obtain ⟨ι, hι, hZ⟩ := exists_rank_embedding (dual_additive_torsionFree G)
+  choose d hd using hZ
+  exact ⟨_, ker_qmap_isDelta G hι hd⟩
 
 /-- **Topological characterisation, unconditional form.** For a nontrivial finite-dimensional
 protorus `G`, `td(G)` is not locally compact and `exp_n : nala(G) → td(G)` is not open. -/

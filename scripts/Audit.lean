@@ -139,6 +139,16 @@ import Pontryagin
 #print axioms AdelicToriLean.arlaEquiv
 #print axioms AdelicToriLean.arla_real
 #print axioms AdelicToriLean.symmetric_adelic_lie_algebra_fd
+#print axioms AdelicToriLean.ker_qmap_isDelta
+#print axioms AdelicToriLean.countable_torsion_torus
+#print axioms AdelicToriLean.circle_torsion_iff
+#print axioms AdelicToriLean.E_surjective
+#print axioms AdelicToriLean.vθ_one_mem_td_iff
+#print axioms AdelicToriLean.kerE_equiv
+#print axioms AdelicToriLean.discrete_kerE
+#print axioms AdelicToriLean.sigmaCompact_nala
+#print axioms AdelicToriLean.E_isOpenMap
+#print axioms AdelicToriLean.adelic_exponential_lie_category
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

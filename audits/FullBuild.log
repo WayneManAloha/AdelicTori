@@ -1,4 +1,4 @@
-⚠ [8769/8834] Replayed Pontryagin.Basic
+⚠ [8769/8835] Replayed Pontryagin.Basic
 warning: vendor/Pontryagin/Pontryagin/Basic.lean:97:2: Try this: 
   letI̵
 
@@ -23,7 +23,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8773/8834] Replayed Pontryagin.PositiveType
+⚠ [8773/8835] Replayed Pontryagin.PositiveType
 warning: vendor/Pontryagin/Pontryagin/PositiveType.lean:326:2: Try this: 
   letI̵
 
@@ -42,12 +42,12 @@ But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 warning: vendor/Pontryagin/Pontryagin/PositiveType.lean:366:6: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
-⚠ [8776/8834] Replayed Pontryagin.DualPolars
+⚠ [8776/8835] Replayed Pontryagin.DualPolars
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:55:19: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:59:19: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:216:50: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 warning: vendor/Pontryagin/Pontryagin/DualPolars.lean:246:22: `ContinuousMap.isOpen_setOf_mapsTo` has been deprecated: Use `ContinuousMap.isOpen_setOfPred_mapsTo` instead
-⚠ [8783/8834] Replayed Pontryagin.Bochner
+⚠ [8783/8835] Replayed Pontryagin.Bochner
 warning: vendor/Pontryagin/Pontryagin/Bochner.lean:1299:2: Try this: 
   haveI̵
 
@@ -80,7 +80,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8784/8834] Replayed Pontryagin.Inversion
+⚠ [8784/8835] Replayed Pontryagin.Inversion
 warning: vendor/Pontryagin/Pontryagin/Inversion.lean:570:2: Try this: 
   haveI̵
 
@@ -225,7 +225,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8785/8834] Replayed Pontryagin.EvalInjective
+⚠ [8785/8835] Replayed Pontryagin.EvalInjective
 warning: vendor/Pontryagin/Pontryagin/EvalInjective.lean:103:2: Try this: 
   haveI̵
 
@@ -306,7 +306,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8787/8834] Replayed Pontryagin.Plancherel
+⚠ [8787/8835] Replayed Pontryagin.Plancherel
 warning: vendor/Pontryagin/Pontryagin/Plancherel.lean:609:2: Try this: 
   haveI̵
 
@@ -323,7 +323,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-⚠ [8789/8834] Replayed Pontryagin.Duality
+⚠ [8789/8835] Replayed Pontryagin.Duality
 warning: vendor/Pontryagin/Pontryagin/Duality.lean:71:2: Try this: 
   letI̵
 
@@ -372,6 +372,6 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-✔ [8832/8834] Built AdelicToriLean.ArlaReal (9.3s)
-✔ [8833/8834] Built AdelicToriLean (13s)
-Build completed successfully (8834 jobs).
+✔ [8833/8835] Built AdelicToriLean.LieCategory (10s)
+✔ [8834/8835] Built AdelicToriLean (14s)
+Build completed successfully (8835 jobs).

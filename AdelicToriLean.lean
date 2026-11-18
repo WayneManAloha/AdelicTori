@@ -45,3 +45,4 @@ import AdelicToriLean.DeltaExistence
 import AdelicToriLean.NalaPeriodic
 import AdelicToriLean.AdelicExp
 import AdelicToriLean.ArlaReal
+import AdelicToriLean.LieCategory
