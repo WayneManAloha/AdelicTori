@@ -53,6 +53,7 @@ import AdelicToriLean.AdelicDual
 import AdelicToriLean.ArcComponent
 import AdelicToriLean.ZassenhausTopology
 import AdelicToriLean.ZassenhausRealisation
+import AdelicToriLean.ZassenhausLie
 import AdelicToriLean.NonarchDim
 import AdelicToriLean.NumberFieldDim
 import AdelicToriLean.DimLattice

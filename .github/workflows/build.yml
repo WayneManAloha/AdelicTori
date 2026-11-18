@@ -29,6 +29,7 @@ jobs:
             echo "forbidden token found"; exit 1; fi
       - name: Axiom audit
         run: |
+          set -o pipefail
           lake env lean scripts/Audit.lean | tee axioms.txt
-          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 213
+          test "$(grep -c 'depends on axioms: \[propext, Classical.choice, Quot.sound\]' axioms.txt)" -eq 234
           ! grep -q sorryAx axioms.txt

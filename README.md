@@ -2,20 +2,19 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 213 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 234 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, 21 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, 12 for `dim_n Lie_n(G) = n`, the adelic covering module and the Arnold Theorem 0.2 calibration, and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 29 for the topological and adelic Lie resolutions in Theorem `zassenhaus-realisation`, 21 for the nonarchimedean dimension (`dim_n`) and Theorem `nonarchimedean-line-number-field`, 12 for `dim_n Lie_n(G) = n`, the adelic covering module and the Arnold Theorem 0.2 calibration, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
 - Most of the manuscript's topological theorems are now checked in Lean, among them
   `fdccg-adelic-tori`, `spectrum-resolutions`, `self-dual-pses`, the topological characterisation,
-  `adelic-exponential-lie-category`, `kumu`, and the topological half of `zassenhaus-realisation`.
-  The theorem map below lists what is still paper only (chiefly `dim_n` and its consequences) and
-  what is cited.
+  `adelic-exponential-lie-category`, `kumu`, and `zassenhaus-realisation`.
+  The theorem map below gives the formal statement and Lean declaration for each result.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
@@ -50,7 +49,7 @@ These results are stated for a particular infinite sequence of prime ideals, cal
 
 The theorem map below gives the status of each topological theorem of the manuscript.
 
-The accompanying axiom audit confirms that the 213 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 234 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -70,7 +69,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 213 audited Lean declarations.
+The repository contains 234 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -129,7 +128,13 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | `T_K^∨ = 𝒪_K^⊥` (characters of `B_K` trivial on `𝒪_K`) is a delta-subgroup of `B_K^∨`, `B_K^∨/T_K^∨ ≅ (ℝ/ℤ)^[K:ℚ]` | `mem_TK_iff`, `Tperp_isDelta` | `ZassenhausRealisation.lean`, `ZassenhausTopology.lean` | certified |
 | the projection of the diagonal `𝒪_K` into `T_K^∨` is dense | `dense_diag` | `ZassenhausTopology.lean` | certified |
 | `B_K^∨ ≅ (T_K^∨ × ℝ·K)/𝒪_K`: `(δ, x) ↦ δ · exp_a(x)` is onto with kernel the diagonal `𝒪_K = ℤ^[K:ℚ]` | `resolutionEquiv`, `ker_resolution` | `ZassenhausTopology.lean` | certified |
-| `B_K^∨ ≅ (ℒ_n(B_K^∨) × ℝ·K)/K` | none | none | paper only (instance of Theorem `adelic-exponential-lie-category`) |
+| the diagonal `K` embeds in `ℒ_n(B_K^∨) × (ℝ ⊗_ℚ K)` as the kernel of the adelic exponential | `diagonalK_apply`, `diagK_finite`, `diagonalK_injective`, `diagonalK_range` | `ZassenhausLie.lean` | certified |
+| `B_K^∨ ≅ₜ (ℒ_n(B_K^∨) × (ℝ ⊗_ℚ K))/K` | `zassenhausLieEquiv`, `zassenhaus_lie` | `ZassenhausLie.lean` | certified |
+
+In the real tensor factor the diagonal sends `k` to `1 ⊗ k`. In angular coordinates this
+is `2π·coords(k)`, using the integral basis. The finite coordinate is the unique
+`f ∈ ℒ_n(B_K^∨)` whose value at `1 ∈ ℚ̂` is the inverse of the archimedean exponential
+at that angle.
 
 ### Paper Theorem *Nonarchimedean Line through a Number Field* (`nonarchimedean-line-number-field`)
 
@@ -480,6 +485,7 @@ closure nor the rotating index `i(k)`.
 | `AdelicToriLean/AdelicExp.lean` | divisibility; the adelic exponential |
 | `AdelicToriLean/ArlaReal.lean` | `arla(G) ≅ ℝⁿ`; **Theorem `symmetric-adelic-lie-algebra`** |
 | `AdelicToriLean/LieCategory.lean` | **Theorem `adelic-exponential-lie-category`** |
+| `AdelicToriLean/ZassenhausLie.lean` | diagonal `K` and the adelic Lie quotient in **Theorem `zassenhaus-realisation`** |
 | `AdelicToriLean/ArcDense.lean` | `exp_a(Hom(ℝ, G))` dense |
 | `AdelicToriLean/Kumu.lean` | **Theorem `kumu`** |
 | `AdelicToriLean/DualTopology.lean` | **Remark `dense-subgroups-dual-topologies`** |
@@ -505,7 +511,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 213 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 234 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -540,6 +546,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 213 declarations: 209 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 234 declarations: 230 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.
