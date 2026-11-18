@@ -163,6 +163,15 @@ import Pontryagin
 #print axioms AdelicToriLean.expA_A_injective
 #print axioms AdelicToriLean.dense_expA_A
 #print axioms AdelicToriLean.dense_subgroups_dual_topologies
+#print axioms AdelicToriLean.adeleChar_injective
+#print axioms AdelicToriLean.adeleChar_surjective
+#print axioms AdelicToriLean.adeleSelfDual
+#print axioms AdelicToriLean.adele_self_dual
+#print axioms AdelicToriLean.isClosed_Zd
+#print axioms AdelicToriLean.PhiZQ_injective
+#print axioms AdelicToriLean.PhiZQ_surjective
+#print axioms AdelicToriLean.adeleModZDual
+#print axioms AdelicToriLean.closing_example
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

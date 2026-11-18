@@ -49,3 +49,4 @@ import AdelicToriLean.LieCategory
 import AdelicToriLean.ArcDense
 import AdelicToriLean.Kumu
 import AdelicToriLean.DualTopology
+import AdelicToriLean.AdelicDual

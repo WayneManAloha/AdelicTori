@@ -2,12 +2,12 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 157 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 166 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
@@ -47,7 +47,7 @@ These results are stated for a particular infinite sequence of prime ideals, cal
 
 The manuscript's topological theorems have also not yet been checked in Lean.
 
-The accompanying axiom audit confirms that the 157 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 166 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -67,7 +67,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 157 audited Lean declarations.
+The repository contains 166 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -349,10 +349,19 @@ of `A` in its dual topology. `hom_eq_zero_of_noFreeSummand`: no free summands gi
 `Hom(A, ℤ) = 0`. The Lean proof is by duality and does not use the structure theorem for closed
 subgroups of `ℝⁿ`.
 
-### Other results of the paper
+### Self-duality of the adeles: certified
 
-These are all **paper only**:
-- the closing Example.
+`adeleSelfDual` (`AdelicDual.lean`): `𝔸 = ℚ̂ × ℝ` is a self-dual locally compact abelian group;
+`(u, t) ∈ 𝔸` corresponds to the character `(x, y) ↦ e(ψ(u x)) · exp(i t y)`
+(`adeleChar_injective`, `adeleChar_surjective`, packaged as `adele_self_dual`).
+
+### Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`: certified
+
+`closing_example` (`AdelicDual.lean`): the diagonal `ℤ` is closed in `𝔸` (`isClosed_Zd`),
+`𝔸/ℤ` is locally compact Hausdorff, and `adeleModZDual : ℤ̂ × ℚ ≃ₜ* (𝔸/ℤ)^∨` with `ℤ̂` compact and
+`ℚ` discrete; `(z, q)` goes to the character induced by `(z + q, -2πq) ∈ 𝔸`. The Lean proof
+identifies the characters of `𝔸` trivial on `ℤ` directly, using strong approximation
+`ℚ̂ = ℚ + ℤ̂`, rather than the paper's dual short exact sequence.
 
 Corollary *Five Equivalents* (`G ≅ H`, `td(G) ≅ td(H)`, `κ(G) ≅ κ(H)`, `a(G) ≅ a(H)`, `G` homeomorphic
 to `H`) is a **cited result**, not formalized: its proof rests on Dikranjan–Lewis–Loth–Mader
@@ -454,7 +463,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 157 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 166 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -489,6 +498,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 157 declarations: 153 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 166 declarations: 162 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.
