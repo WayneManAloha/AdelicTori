@@ -241,7 +241,7 @@ theorem arla_real [FiniteDimensional ℚ (ℚ ⊗[ℤ] Additive (PontryaginDual 
   choose d hd using hZ
   exact ⟨arlaEquiv hd hι⟩
 
-/-- **Theorem `symmetric-adelic-lie-algebra`** (all assertions except `dim_n nala(G) = dim_n G`
+/-- **Theorem `symmetric-adelic-lie-algebra`** (all assertions except `dim_n nala(G) = n = dim_a arla(G)`
 and the cited uniqueness statements). For a finite-dimensional protorus `G`, `n = dim_a G`:
 `adla(G) ≅ nala(G) × arla(G)`; `nala(G)` is a divisible periodic LCA group with
 `ev_1 : nala(G) ≅ td(G)`; `arla(G) ≅ ℝⁿ`; and the adelic exponential is

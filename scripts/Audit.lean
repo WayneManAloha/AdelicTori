@@ -158,6 +158,11 @@ import Pontryagin
 #print axioms AdelicToriLean.kumuEquiv
 #print axioms AdelicToriLean.dense_kumu
 #print axioms AdelicToriLean.kumu_theorem
+#print axioms AdelicToriLean.hom_eq_zero_of_noFreeSummand
+#print axioms AdelicToriLean.expA_injective
+#print axioms AdelicToriLean.expA_A_injective
+#print axioms AdelicToriLean.dense_expA_A
+#print axioms AdelicToriLean.dense_subgroups_dual_topologies
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
