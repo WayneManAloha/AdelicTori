@@ -39,3 +39,5 @@ import AdelicToriLean.SelfDualPSES
 import AdelicToriLean.AdelicLieAlgebra
 import AdelicToriLean.ZHatAction
 import AdelicToriLean.NonarchExp
+import AdelicToriLean.DeltaSubgroup
+import AdelicToriLean.TopCharacterisation

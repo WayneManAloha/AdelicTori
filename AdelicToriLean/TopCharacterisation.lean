@@ -1,0 +1,198 @@
+import AdelicToriLean.DeltaSubgroup
+
+/-!
+# Theorem `topological-characterisation-nonarchimedean-exponential`
+
+Let `G` be a compact connected Hausdorff abelian group (a protorus) with a delta-subgroup `Δ`,
+`G/Δ ≅ (ℝ/ℤ)ⁿ`, and `q : G → (ℝ/ℤ)ⁿ` the quotient map.
+
+* `torsion_of_mem_tdSet`, `mem_tdSet_of_torsion`: `td(G) = q⁻¹(torsion of (ℝ/ℤ)ⁿ)`;
+* `dense_tdSet`: `td(G)` is dense in `G`;
+* `not_isOpen_delta`: `Δ` is not open in `td(G)` (for `G ≠ 1`);
+* `not_isOpenMap_expn`: `exp_n : nala(G) → td(G)` is not open;
+* `not_locallyCompact_td`: `td(G)` is not locally compact;
+* `topological_characterisation`: the assembled theorem.
+-/
+
+open Topology Filter
+
+noncomputable section
+
+namespace AdelicToriLean
+
+variable {G : Type*} [CommGroup G] [TopologicalSpace G] [IsTopologicalGroup G]
+
+omit [CommGroup G] [IsTopologicalGroup G] in
+/-- A connected group that is totally disconnected is trivial. -/
+theorem not_nontrivial_of_td_univ [ConnectedSpace G] (h : IsTotallyDisconnected (Set.univ : Set G)) :
+    ¬ Nontrivial G := by
+  intro hnt
+  obtain ⟨a, b, hab⟩ := exists_pair_ne G
+  exact hab (h Set.univ subset_rfl isPreconnected_univ (Set.mem_univ a) (Set.mem_univ b))
+
+/-- Elements of `td(G)` map to torsion points of the torus. -/
+theorem torsion_of_mem_tdSet [T2Space G] {n : ℕ} (q : G →* Torus n) (hqc : Continuous q)
+    {x : G} (hx : x ∈ tdSet G) : ∃ k : ℕ, 0 < k ∧ q x ^ k = 1 := by
+  rw [← range_expn] at hx
+  obtain ⟨f, rfl⟩ := hx
+  obtain ⟨U, hUo, hU1, hU⟩ := torus_nss n
+  set φ : Multiplicative ZHat →* Torus n := q.comp (f : Multiplicative ZHat →* G)
+  have hφc : Continuous φ := hqc.comp f.continuous
+  obtain ⟨H, hH⟩ := ProfiniteGrp.exist_openNormalSubgroup_sub_open_nhds_of_one
+    (hUo.preimage hφc) (by simpa [φ] using hU1)
+  have : Finite (Multiplicative ZHat ⧸ H.toSubgroup) :=
+    Subgroup.quotient_finite_of_isOpen H.toSubgroup H.isOpen
+  have : H.toSubgroup.FiniteIndex := H.toSubgroup.finiteIndex_of_finite_quotient
+  refine ⟨H.toSubgroup.index, Nat.pos_of_ne_zero Subgroup.FiniteIndex.index_ne_zero, ?_⟩
+  have hb := hU (H.toSubgroup.map φ) (by rintro _ ⟨w, hw, rfl⟩; exact hH hw)
+  have hm : φ (genZ ^ H.toSubgroup.index) ∈ H.toSubgroup.map φ :=
+    ⟨_, H.toSubgroup.pow_index_mem genZ, rfl⟩
+  rw [hb, Subgroup.mem_bot, map_pow] at hm
+  exact hm
+
+variable [CompactSpace G] [T2Space G]
+
+omit [T2Space G] in
+/-- Preimages of torsion points of the torus lie in `td(G)`. -/
+theorem mem_tdSet_of_torsion {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) (q : G →* Torus n)
+    (hqc : Continuous q) (hq : ∀ x, q x = 1 ↔ x ∈ Δ) {x : G} {k : ℕ} (hk : 0 < k)
+    (hx : q x ^ k = 1) : x ∈ tdSet G := by
+  set Z := Subgroup.zpowers (q x)
+  set P : Subgroup G := Z.comap q
+  have hZfin : (Z : Set (Torus n)).Finite :=
+    (isOfFinOrder_iff_pow_eq_one.mpr ⟨k, hk, hx⟩).finite_zpowers
+  have hPc : IsClosed (P : Set G) := hZfin.isClosed.preimage hqc
+  -- the restriction `P → Z`, with kernel `Δ ∩ P`
+  set φ : P →* Z := (q.comp P.subtype).codRestrict Z (fun p => p.2)
+  have hker : ∀ p : P, p ∈ φ.ker ↔ (p : G) ∈ Δ := fun p => by
+    rw [MonoidHom.mem_ker, ← hq, Subtype.ext_iff]; rfl
+  have : Finite Z := hZfin.to_subtype
+  have : Finite (P ⧸ φ.ker) := Finite.of_injective _ (QuotientGroup.kerLift_injective φ)
+  have : φ.ker.FiniteIndex := φ.ker.finiteIndex_of_finite_quotient
+  have hNc : IsClosed (φ.ker : Set P) := by
+    have : (φ.ker : Set P) = (Subtype.val : P → G) ⁻¹' Δ := by ext p; exact hker p
+    rw [this]; exact hΔ.closed.preimage continuous_subtype_val
+  have hNo : IsOpen (φ.ker : Set P) := Subgroup.isOpen_of_isClosed_of_finiteIndex _ hNc
+  have hTD : IsTotallyDisconnected (P : Set G) := by
+    intro t htP htc a ha b hb
+    set a' : P := ⟨a, htP ha⟩
+    set C : Set P := {p | a'⁻¹ * p ∈ φ.ker}
+    have hC : IsClopen C := ⟨hNc.preimage (continuous_const_mul a'⁻¹),
+      hNo.preimage (continuous_const_mul a'⁻¹)⟩
+    set t' : Set P := (Subtype.val : P → G) ⁻¹' t
+    have ht' : IsPreconnected t' := by
+      have heq : (Subtype.val : P → G) '' t' = t := by
+        ext y
+        exact ⟨by rintro ⟨p, hp, rfl⟩; exact hp, fun hy => ⟨⟨y, htP hy⟩, hy, rfl⟩⟩
+      exact (IsInducing.subtypeVal : IsInducing (Subtype.val : P → G)).isPreconnected_image.mp (heq ▸ htc)
+    have hsub : t' ⊆ C := ht'.subset_isClopen hC ⟨a', ha, by simp [C]⟩
+    have himg : (fun y => a⁻¹ * y) '' t ⊆ Δ := by
+      rintro _ ⟨y, hy, rfl⟩
+      have := (hker _).mp (hsub (show (⟨y, htP hy⟩ : P) ∈ t' from hy))
+      simpa [a'] using this
+    have hsingle := hΔ.td _ himg (htc.image _ (continuous_const_mul a⁻¹).continuousOn)
+    exact mul_left_cancel (hsingle ⟨a, ha, rfl⟩ ⟨b, hb, rfl⟩)
+  exact ⟨P, hPc.isCompact, totallyDisconnectedSpace_subtype_iff.mpr hTD,
+    Subgroup.mem_zpowers (q x)⟩
+
+omit [T2Space G] in
+/-- **`td(G)` is dense in `G`.** -/
+theorem dense_tdSet {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) : Dense (tdSet G) := by
+  obtain ⟨q, hqc, hqo, -, hq⟩ := hΔ.exists_map
+  rw [dense_iff_inter_open]
+  rintro U hU ⟨u, hu⟩
+  obtain ⟨_, ⟨y, hyU, rfl⟩, k, hk, hyk⟩ :=
+    (dense_torsion_torus n).inter_open_nonempty _ (hqo U hU) ⟨q u, u, hu, rfl⟩
+  exact ⟨y, hyU, mem_tdSet_of_torsion hΔ q hqc hq hk hyk⟩
+
+variable [ConnectedSpace G]
+
+/-- **`Δ` is not open in `td(G)`** when `G ≠ 1`. -/
+theorem not_isOpen_delta [Nontrivial G] {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) :
+    ¬ IsOpen ((Subtype.val : td G → G) ⁻¹' Δ) := by
+  intro hO
+  obtain ⟨U, hU, hUe⟩ := isOpen_induced_iff.mp hO
+  have hUΔ : U ⊆ Δ := by
+    refine ((dense_tdSet hΔ).open_subset_closure_inter hU).trans (closure_minimal ?_ hΔ.closed)
+    rintro y ⟨hyU, hyt⟩
+    have : (⟨y, (mem_td_iff G).mpr hyt⟩ : td G) ∈ (Subtype.val : td G → G) ⁻¹' U := hyU
+    rw [hUe] at this
+    exact this
+  have h1 : (1 : G) ∈ U := by
+    have : (1 : td G) ∈ (Subtype.val : td G → G) ⁻¹' U := by rw [hUe]; exact Δ.one_mem
+    exact this
+  have hΔo : IsOpen (Δ : Set G) := Subgroup.isOpen_of_mem_nhds _ (mem_of_superset (hU.mem_nhds h1) hUΔ)
+  have huniv : (Δ : Set G) = Set.univ := IsClopen.eq_univ ⟨hΔ.closed, hΔo⟩ ⟨1, Δ.one_mem⟩
+  exact not_nontrivial_of_td_univ (huniv ▸ hΔ.td) inferInstance
+
+omit [ConnectedSpace G] in
+/-- `exp_n(K_Δ) = Δ`, read inside `td(G)`. -/
+theorem expnEquiv_image_Kdelta {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) :
+    expnEquiv G '' (Kdelta Δ : Set (nala G)) = (Subtype.val : td G → G) ⁻¹' Δ := by
+  ext ⟨y, hy⟩
+  have h := Set.ext_iff.mp (expn_image_Kdelta Δ hΔ.closed hΔ.td) y
+  simp only [Set.mem_image, Set.mem_preimage, SetLike.mem_coe] at h ⊢
+  rw [← h]
+  constructor
+  · rintro ⟨f, hf, he⟩; exact ⟨f, hf, congrArg Subtype.val he⟩
+  · rintro ⟨f, hf, he⟩; exact ⟨f, hf, Subtype.ext he⟩
+
+/-- **`exp_n : nala(G) → td(G)` is not open** when `G ≠ 1`. -/
+theorem not_isOpenMap_expn [Nontrivial G] {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) :
+    ¬ IsOpenMap (expnEquiv G) := by
+  intro h
+  apply not_isOpen_delta hΔ
+  rw [← expnEquiv_image_Kdelta hΔ]
+  exact h _ (isOpen_Kdelta hΔ)
+
+/-- **`td(G)` is not locally compact** when `G ≠ 1`. -/
+theorem not_locallyCompact_td [Nontrivial G] {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) :
+    ¬ LocallyCompactSpace (td G) := by
+  intro hLC
+  obtain ⟨q, hqc, -, hqs, hq⟩ := hΔ.exists_map
+  obtain ⟨K, hKc, hKn⟩ := exists_compact_mem_nhds (1 : td G)
+  obtain ⟨u, hu, huK⟩ := (mem_nhds_subtype _ _ _).mp hKn
+  obtain ⟨U, hUu, hU, h1U⟩ := mem_nhds_iff.mp hu
+  have hKi : IsClosed ((Subtype.val : td G → G) '' K) :=
+    (hKc.image continuous_subtype_val).isClosed
+  have hUt : U ⊆ td G := by
+    refine ((dense_tdSet hΔ).open_subset_closure_inter hU).trans
+      ((closure_minimal ?_ hKi).trans ?_)
+    · rintro y ⟨hyU, hyt⟩
+      exact ⟨⟨y, (mem_td_iff G).mpr hyt⟩, huK (hUu hyU), rfl⟩
+    · rintro _ ⟨y, -, rfl⟩; exact y.2
+  have hto : IsOpen (td G : Set G) := Subgroup.isOpen_of_mem_nhds _ (mem_of_superset (hU.mem_nhds h1U) hUt)
+  have huniv : (td G : Set G) = Set.univ :=
+    IsClopen.eq_univ ⟨Subgroup.isClosed_of_isOpen _ hto, hto⟩ ⟨1, (td G).one_mem⟩
+  have hall : ∀ x : G, ∃ k : ℕ, 0 < k ∧ q x ^ k = 1 := fun x =>
+    torsion_of_mem_tdSet q hqc ((mem_td_iff G).mp (show x ∈ (td G : Set G) by rw [huniv]; trivial))
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · -- `n = 0`: `Δ = G`
+    have : (Δ : Set G) = Set.univ := Set.eq_univ_of_forall fun x =>
+      (hq x).mp (Subsingleton.elim _ _)
+    exact not_nontrivial_of_td_univ (this ▸ hΔ.td) inferInstance
+  · obtain ⟨x, hx⟩ := hqs (fun _ => Circle.exp 1)
+    obtain ⟨k, hk, hxk⟩ := hall x
+    apply circle_exp_one_not_torsion k hk
+    have := congrFun hxk ⟨0, hn⟩
+    rwa [Pi.pow_apply, hx] at this
+
+/-- **Theorem `topological-characterisation-nonarchimedean-exponential`.** For a nontrivial
+protorus `G` with a delta-subgroup `Δ`:
+`exp_n(f) = f(1)` is a continuous algebraic isomorphism of `nala(G)` onto `td(G)`, the union of the
+compact totally disconnected subgroups of `G`; `td(G)` is not locally compact and `exp_n` is not
+open; `K_Δ` is open in `nala(G)`, evaluation at `1` maps it topologically onto `Δ`, and `Δ` is
+compact and not open in `td(G)`. -/
+theorem topological_characterisation [Nontrivial G]
+    {Δ : Subgroup G} {n : ℕ} (hΔ : IsDelta Δ n) :
+    Continuous (expn G) ∧ Function.Injective (expn G) ∧ Set.range (expn G) = tdSet G ∧
+      ¬ LocallyCompactSpace (td G) ∧ ¬ IsOpenMap (expnEquiv G) ∧
+      IsOpen (Kdelta Δ : Set (nala G)) ∧
+      (∃ e : Kdelta Δ ≃ₜ* Δ, ∀ f, (e f : G) = (f : nala G) genZ) ∧
+      IsCompact (Δ : Set G) ∧ ¬ IsOpen ((Subtype.val : td G → G) ⁻¹' Δ) :=
+  ⟨continuous_expn G, expn_injective G, range_expn G, not_locallyCompact_td hΔ,
+    not_isOpenMap_expn hΔ, isOpen_Kdelta hΔ,
+    ⟨kdeltaEquiv Δ hΔ.closed hΔ.td, kdeltaEquiv_apply Δ hΔ.closed hΔ.td⟩,
+    hΔ.closed.isCompact, not_isOpen_delta hΔ⟩
+
+end AdelicToriLean

@@ -107,6 +107,19 @@ import Pontryagin
 #print axioms AdelicToriLean.range_expn
 #print axioms AdelicToriLean.map_td_le
 #print axioms AdelicToriLean.nonarchimedean_exponential
+#print axioms AdelicToriLean.torus_nss
+#print axioms AdelicToriLean.dense_torsion_torus
+#print axioms AdelicToriLean.continuous_act
+#print axioms AdelicToriLean.isOpen_Kdelta
+#print axioms AdelicToriLean.kdeltaEquiv
+#print axioms AdelicToriLean.expn_image_Kdelta
+#print axioms AdelicToriLean.torsion_of_mem_tdSet
+#print axioms AdelicToriLean.mem_tdSet_of_torsion
+#print axioms AdelicToriLean.dense_tdSet
+#print axioms AdelicToriLean.not_isOpen_delta
+#print axioms AdelicToriLean.not_isOpenMap_expn
+#print axioms AdelicToriLean.not_locallyCompact_td
+#print axioms AdelicToriLean.topological_characterisation
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
