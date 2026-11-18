@@ -194,6 +194,14 @@ import Pontryagin
 #print axioms AdelicToriLean.card_ptors_TK_le
 #print axioms AdelicToriLean.exists_prank_quot
 #print axioms AdelicToriLean.dimN_TK
+#print axioms AdelicToriLean.card_ptors_le
+#print axioms AdelicToriLean.dimN_le
+#print axioms AdelicToriLean.dimN_eq_zero_iff
+#print axioms AdelicToriLean.one_le_dimN
+#print axioms AdelicToriLean.one_le_dimN_B
+#print axioms AdelicToriLean.dimN_BK
+#print axioms AdelicToriLean.isGroupOfIntegers_BK
+#print axioms AdelicToriLean.dimNK_eq_one
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

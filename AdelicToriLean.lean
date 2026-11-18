@@ -55,3 +55,5 @@ import AdelicToriLean.ZassenhausTopology
 import AdelicToriLean.ZassenhausRealisation
 import AdelicToriLean.NonarchDim
 import AdelicToriLean.NumberFieldDim
+import AdelicToriLean.DimLattice
+import AdelicToriLean.NumberFieldDimK
