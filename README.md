@@ -2,18 +2,20 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
 Development milestone v0.1.0-discrete-core: the discrete arithmetic results have been machine-checked in Lean. The full manuscript has not yet been formalized.
-- 172 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
+- 180 audited declarations (`audits/axioms.txt`) were checked in Lean: 22 for the discrete
   arithmetic core, 29 for Theorem `fdccg-adelic-tori` and its ingredients, 6 for Theorem
   `spectrum-resolutions`, 27 for Theorem `self-dual-pses` and its ingredients, 12 for Theorem
   `symmetric-adelic-lie-algebra` and the adelic exponential, 23 for Theorem
   `topological-characterisation-nonarchimedean-exponential` and its ingredients (the
-  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), and 4 imported from the vendored Pontryagin duality library.
+  `ℤ̂`-action, delta-subgroups, `K_Δ ≅ Δ`), 4 for the existence of delta-subgroups, 6 for Lemma `nala-periodic-lca`, 10 for Theorem `adelic-exponential-lie-category`, 2 for the density of `exp_a(Hom(ℝ, G))`, 7 for Theorem `kumu`, 5 for Remark `dense-subgroups-dual-topologies`, 4 for the self-duality of `𝔸`, 5 for the closing Example `(𝔸/ℤ)^∨ ≅ ℤ̂ × ℚ`, 6 for `a(G)` (path component, divisible, fully invariant, `exp_a` not open), 8 for the topological half of Theorem `zassenhaus-realisation`, and 4 imported from the vendored Pontryagin duality library.
 - The existence of a `DegreeOnePrimes K` sequence for every number field is now checked in Lean
   (`exists_degreeOnePrimes`), so the discrete results hold unconditionally
   (`exists_groupOfIntegers`).
-- Theorems `fdccg-adelic-tori` (finite-dimensional protori are adelic tori) and
-  `spectrum-resolutions` are checked in Lean. The manuscript's other topological theorems are not
-  yet formally checked here.
+- Most of the manuscript's topological theorems are now checked in Lean, among them
+  `fdccg-adelic-tori`, `spectrum-resolutions`, `self-dual-pses`, the topological characterisation,
+  `adelic-exponential-lie-category`, `kumu`, and the topological half of `zassenhaus-realisation`.
+  The theorem map below lists what is still paper only (chiefly `dim_n` and its consequences) and
+  what is cited.
 
 Lean 4 companion to the paper **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis,
 [arXiv:2411.16000](https://arxiv.org/abs/2411.16000).
@@ -22,8 +24,9 @@ This repository contains machine-checked Lean proofs for the discrete algebraic 
 endomorphism ring, and the structure of `B_K / 𝒪_K` underlying the statement that the
 nonarchimedean dimension of every number field is `1`.
 
-The topological parts of the paper (Pontryagin duality, adelic tori, delta-subgroups, the
-adelic Lie algebra) are **not** formalized here. The status of each result is listed below.
+The topological parts of the paper (adelic tori, delta-subgroups, the adelic Lie algebra) are
+formalized here using a vendored Pontryagin duality library. The status of each result is listed
+below.
 
 ## What does it mean that a proof has been checked by Lean?
 
@@ -45,9 +48,9 @@ The current version contains 22 machine-checked declarations concerning the arit
 
 These results are stated for a particular infinite sequence of prime ideals, called `DegreeOnePrimes K`. **The existence of such a sequence for every number field has now been proved in Lean** (`exists_degreeOnePrimes`).
 
-The manuscript's topological theorems have also not yet been checked in Lean.
+The theorem map below gives the status of each topological theorem of the manuscript.
 
-The accompanying axiom audit confirms that the 172 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
+The accompanying axiom audit confirms that the 180 checked declarations use only Lean's standard foundational axioms, with no missing proofs inserted using `sorry`.
 
 ### What does a successful build mean?
 
@@ -67,7 +70,7 @@ open a terminal and run:
     lake build
     lake env lean scripts/Audit.lean
 
-The repository contains 172 audited Lean declarations.
+The repository contains 180 audited Lean declarations.
 See audits/axioms.txt for their axiom dependencies.
 
 No local Lean installation is required.
@@ -105,7 +108,7 @@ distinct rational primes `q k`.
 
 Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = D.BK`.
 
-### Paper Theorem *Adelic Realisation of a Group of Integers* (`zassenhaus-realisation`): discrete part
+### Paper Theorem *Adelic Realisation of a Group of Integers* (`zassenhaus-realisation`)
 
 | Paper statement | Lean declaration | File | Status |
 |---|---|---|---|
@@ -122,7 +125,11 @@ Declarations are in namespace `AdelicToriLean`; `D : DegreeOnePrimes K`, `B_K = 
 | `𝔭_k⁻¹/𝒪_K` cyclic of prime order `q_k` | `primary_component_cyclic` | `Paper.lean` (`Quotient.lean`) | certified |
 | existence of infinitely many suitable primes | `exists_degreeOnePrimes` | `Existence.lean` | certified |
 | the discrete realisation for every number field | `exists_groupOfIntegers` | `Unconditional.lean` | certified |
-| `T_K^∨` is a delta-subgroup of `B_K^∨`, density of the diagonal `𝒪_K`, the isomorphisms `B_K^∨ ≅ (T_K^∨ × ℝ·K)/𝒪_K ≅ (ℒ_n(B_K^∨) × ℝ·K)/K` | none | none | paper only (Pontryagin duality) |
+| `B_K^∨` compact, connected, Hausdorff (so in **AT**) | `zassenhaus_topological`, `connectedSpace_of_rank` | `ZassenhausRealisation.lean` | certified |
+| `T_K^∨ = 𝒪_K^⊥` (characters of `B_K` trivial on `𝒪_K`) is a delta-subgroup of `B_K^∨`, `B_K^∨/T_K^∨ ≅ (ℝ/ℤ)^[K:ℚ]` | `mem_TK_iff`, `Tperp_isDelta` | `ZassenhausRealisation.lean`, `ZassenhausTopology.lean` | certified |
+| the projection of the diagonal `𝒪_K` into `T_K^∨` is dense | `dense_diag` | `ZassenhausTopology.lean` | certified |
+| `B_K^∨ ≅ (T_K^∨ × ℝ·K)/𝒪_K`: `(δ, x) ↦ δ · exp_a(x)` is onto with kernel the diagonal `𝒪_K = ℤ^[K:ℚ]` | `resolutionEquiv`, `ker_resolution` | `ZassenhausTopology.lean` | certified |
+| `B_K^∨ ≅ (ℒ_n(B_K^∨) × ℝ·K)/K` | none | none | paper only (instance of Theorem `adelic-exponential-lie-category`) |
 
 ### Paper Theorem *Nonarchimedean Line through a Number Field* (`nonarchimedean-line-number-field`)
 
@@ -469,7 +476,7 @@ lake env lean scripts/Audit.lean
 **Continuous integration.** `.github/workflows/build.yml` builds the AdelicTori library and the
 vendored Pontryagin library, fails on any warning in AdelicTori's own sources, rejects
 `sorry`/`admit`/`native_decide`/`axiom` in all sources (including the vendored ones), and checks
-that all 172 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
+that all 180 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
 
 **Codespaces.** `.devcontainer/devcontainer.json` installs `elan`, fetches the Mathlib cache and
 builds on creation.
@@ -504,6 +511,6 @@ The vendored library in `vendor/Pontryagin/` has its own Apache 2.0 license and 
 - `lake build` completes with exit code 0 and 0 errors; AdelicTori's own sources produce 0
   warnings (`audits/FullBuild.log`).
 - No source, original or vendored, contains `sorry`, `admit`, `native_decide` or `axiom`.
-- `audits/axioms.txt` lists the axioms of 172 declarations: 168 from AdelicTori (every paper-facing
+- `audits/axioms.txt` lists the axioms of 180 declarations: 176 from AdelicTori (every paper-facing
   statement and the key lemmas) and 4 from the vendored Pontryagin library. Each depends only on
   `propext`, `Classical.choice`, `Quot.sound`.

@@ -51,3 +51,5 @@ import AdelicToriLean.Kumu
 import AdelicToriLean.DualTopology
 import AdelicToriLean.AdelicDual
 import AdelicToriLean.ArcComponent
+import AdelicToriLean.ZassenhausTopology
+import AdelicToriLean.ZassenhausRealisation

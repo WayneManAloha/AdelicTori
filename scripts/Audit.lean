@@ -178,6 +178,14 @@ import Pontryagin
 #print axioms AdelicToriLean.map_arcSub_le
 #print axioms AdelicToriLean.arcSub_divisible
 #print axioms AdelicToriLean.not_isOpenMap_expa
+#print axioms AdelicToriLean.mem_Tperp_iff
+#print axioms AdelicToriLean.Tperp_isDelta
+#print axioms AdelicToriLean.ker_resolution
+#print axioms AdelicToriLean.resolutionEquiv
+#print axioms AdelicToriLean.dense_diag
+#print axioms AdelicToriLean.connectedSpace_of_rank
+#print axioms AdelicToriLean.mem_TK_iff
+#print axioms AdelicToriLean.zassenhaus_topological
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual
