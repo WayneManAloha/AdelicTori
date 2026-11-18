@@ -149,6 +149,8 @@ import Pontryagin
 #print axioms AdelicToriLean.sigmaCompact_nala
 #print axioms AdelicToriLean.E_isOpenMap
 #print axioms AdelicToriLean.adelic_exponential_lie_category
+#print axioms AdelicToriLean.exists_char_of_not_dense
+#print axioms AdelicToriLean.dense_range_expa
 
 -- Third-party (vendor/Pontryagin), audited here
 #print axioms PontryaginDual.toDoubleDual

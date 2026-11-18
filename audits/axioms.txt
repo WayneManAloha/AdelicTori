@@ -137,6 +137,8 @@
 'AdelicToriLean.sigmaCompact_nala' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AdelicToriLean.E_isOpenMap' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AdelicToriLean.adelic_exponential_lie_category' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AdelicToriLean.exists_char_of_not_dense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AdelicToriLean.dense_range_expa' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PontryaginDual.toDoubleDual' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PontryaginDual.toDoubleDual_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PontryaginDual.eval_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
