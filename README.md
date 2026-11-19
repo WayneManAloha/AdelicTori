@@ -1,7 +1,7 @@
 # AdelicToriLean
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/WayneManAloha/AdelicTori)
 
-**Complete formalization of all proved results:** Every original theorem, lemma, remark, and example in **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis ([arXiv:2411.16000](https://arxiv.org/abs/2411.16000)) has been formalized and machine-checked in Lean 4 with Mathlib (Theorems 5, 6, 7, 10, 12, 13, 14, 17, and 19, Lemma 8, Remark 15, and Example 20). The sole unformalized statement is Corollary 16, whose proof follows directly from cited results in Dikranjan–Lewis–Loth–Mader and Hofmann–Morris.
+**Complete formalization of all proved results:** Every original theorem, lemma, remark, and example in **"Finite-Dimensional Protori Are Adelic Tori"** by Wayne Lewis ([arXiv:2411.16000](https://arxiv.org/abs/2411.16000); updated manuscript matching this Lean 4 formalization pending arXiv's 7-day replacement window) has been formalized and machine-checked in Lean 4 with Mathlib (Theorems 5, 6, 7, 10, 12, 13, 14, 17, and 19, Lemma 8, Remark 15, and Example 20). The sole unformalized statement is Corollary 16, whose proof follows directly from cited results in Dikranjan–Lewis–Loth–Mader and Hofmann–Morris.
 
 - **234 audited declarations (`audits/axioms.txt`)** checked in Lean 4 (`v4.34.0-rc2`) using only standard foundational axioms (`propext`, `Classical.choice`, `Quot.sound`), with zero `sorry`, `admit`, `native_decide`, or custom axioms:
   - **22** for the discrete arithmetic core (`End(B_K) = 𝒪_K`, strong indecomposability, local freeness, `t(ℤ)`-homogeneity, and unconditional existence of `DegreeOnePrimes K` via `exists_degreeOnePrimes` and `exists_groupOfIntegers`);
